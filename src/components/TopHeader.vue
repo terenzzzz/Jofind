@@ -25,7 +25,7 @@
           </li>
 
           <li class="nav-item">
-            <router-link to="/login" class="item text-decoration-none btn btn-primary text-white">
+            <router-link to="/signup" class="item text-decoration-none btn btn-primary text-white">
               Get Started
             </router-link>
           </li>
