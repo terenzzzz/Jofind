@@ -43,29 +43,8 @@
       <!--    岗位卡片-->
       <div class="col-9">
         <div class="row g-4">
-          <div class="col-4 col-xl-3">
-            <JobCard></JobCard>
-          </div>
-          <div class="col-4 col-xl-3">
-            <JobCard></JobCard>
-          </div>
-          <div class="col-4 col-xl-3">
-            <JobCard></JobCard>
-          </div>
-          <div class="col-4 col-xl-3">
-            <JobCard></JobCard>
-          </div>
-          <div class="col-4 col-xl-3">
-            <JobCard></JobCard>
-          </div>
-          <div class="col-4 col-xl-3">
-            <JobCard></JobCard>
-          </div>
-          <div class="col-4 col-xl-3">
-            <JobCard></JobCard>
-          </div>
-          <div class="col-4 col-xl-3">
-            <JobCard></JobCard>
+          <div class="col-4 h-100" v-for="(job,index) in jobs" :key="index">
+            <JobCard :job="job"></JobCard>
           </div>
         </div>
       </div>
@@ -84,6 +63,8 @@
 import { pcaTextArr } from 'element-china-area-data'
 import {ref} from 'vue'
 import JobCard from '@/components/JobCard.vue'
+
+import {jobs} from '@/mock/jobs'
 
 const selectedRegion = ref()
 

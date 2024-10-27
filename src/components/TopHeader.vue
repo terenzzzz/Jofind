@@ -19,16 +19,36 @@
       <div class="collapse navbar-collapse flex-row-reverse" id="collapsibleNavbar">
         <ul class="navbar-nav d-flex align-items-center">
           <li class="nav-item ">
-            <router-link to="/login" class="item text-decoration-none text-primary">
-              Login
+            <router-link to="/message" class="item text-decoration-none text-primary position-relative">
+              Message
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  99+
+                  <span class="visually-hidden">unread messages</span>
+                </span>
             </router-link>
           </li>
 
-          <li class="nav-item">
-            <router-link to="/signup" class="item text-decoration-none btn btn-primary text-white">
-              Get Started
+          <li class="nav-item ">
+            <router-link to="/me" class="item text-decoration-none text-primary">
+              Terence
             </router-link>
           </li>
+
+
+
+<!--          <li class="nav-item ">-->
+<!--            <router-link to="/login" class="item text-decoration-none text-primary">-->
+<!--              Login-->
+<!--            </router-link>-->
+<!--          </li>-->
+
+<!--          <li class="nav-item">-->
+<!--            <router-link to="/signup" class="item text-decoration-none btn btn-primary text-white">-->
+<!--              Get Started-->
+<!--            </router-link>-->
+<!--          </li>-->
+
+
 
 <!--          <li class="nav-item">-->
 <!--            <a href="javascript:void(0);" class="item">-->
@@ -42,13 +62,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
 
-  const routes = ref([
-    { path: "/", name: " " },
-    { path: "/login", name: "login" },
-    { path: "/signup", name: "signup" },
-  ])
 </script>
 
 <style lang="css" scoped>

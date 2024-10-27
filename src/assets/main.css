@@ -1,7 +1,15 @@
-a li{
+p {
+  margin: 0;
+  padding: 0;
+}
+
+a{
   text-decoration: none;
 }
 
+li {
+  list-style: none;
+}
 
 router-link {
   text-decoration: none;
