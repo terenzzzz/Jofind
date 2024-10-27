@@ -1,5 +1,5 @@
 <template>
-  <nav id="navbar" class="navbar navbar-expand-lg p-2 px-5 m-0 sticky-top">
+  <nav id="navbar" class="navbar navbar-expand-lg py-2  m-0 sticky-top">
     <div class="container-fluid">
       <router-link
         class="navbar-brand fs-3 fw-bold primary text-decoration-none d-flex align-items-center"
