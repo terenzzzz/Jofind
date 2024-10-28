@@ -3,7 +3,10 @@ import LandingView from '../views/LandingView.vue'
 import LogIn from '@/views/LogIn.vue'
 import SignUp from '@/views/SignUp.vue'
 import HomeView from '@/views/HomeView.vue'
-import SeekerProfile from '@/views/SeekerProfile.vue'
+import ResumeView from '@/views/profile/ResumeView.vue'
+import Profile from '@/views/profile/ProfileView.vue'
+import OverallView from '@/views/profile/OverallView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,7 +34,20 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
-      component: SeekerProfile
+      component: Profile,
+      redirect: '/profile/overall',
+      children: [
+        {
+          path: 'overall',
+          name: 'overall',
+          component: OverallView,
+        },
+        {
+          path: 'resume',
+          name: 'resume',
+          component: ResumeView,
+        }
+      ]
     },
   ],
   scrollBehavior(to, from, savedPosition) {

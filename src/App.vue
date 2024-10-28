@@ -1,6 +1,6 @@
 <template class="m-0 p-0">
   <TopHeader class="m-0 p-0"></TopHeader>
-  <RouterView class="m-0 p-0"/>
+  <RouterView/>
   <BottomFooter class="m-0 p-0"></BottomFooter>
 </template>
 
