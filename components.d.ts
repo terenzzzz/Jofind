@@ -16,6 +16,7 @@ declare module 'vue' {
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     JobCard: typeof import('./src/components/JobCard.vue')['default']
+    JobExperience: typeof import('./src/components/JobExperience.vue')['default']
     ProjectCard: typeof import('./src/components/ProjectCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
