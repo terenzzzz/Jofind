@@ -2,10 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LandingView from '../views/LandingView.vue'
 import LogIn from '@/views/LogIn.vue'
 import SignUp from '@/views/SignUp.vue'
-import HomeView from '@/views/HomeView.vue'
 import ResumeView from '@/views/profile/ResumeView.vue'
 import Profile from '@/views/profile/ProfileView.vue'
 import OverallView from '@/views/profile/OverallView.vue'
+import MessageView from '@/views/profile/MessageView.vue'
+import JobView from '@/views/JobView.vue'
 
 
 const router = createRouter({
@@ -27,9 +28,9 @@ const router = createRouter({
       component: SignUp
     },
     {
-      path: '/home',
-      name: 'home',
-      component: HomeView
+      path: '/job',
+      name: 'job',
+      component: JobView
     },
     {
       path: '/profile',
@@ -46,6 +47,11 @@ const router = createRouter({
           path: 'resume',
           name: 'resume',
           component: ResumeView,
+        },
+        {
+          path: 'message',
+          name: 'message',
+          component: MessageView,
         }
       ]
     },

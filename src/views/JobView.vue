@@ -1,10 +1,9 @@
 <template>
-  <div id="home" class=" my-3 " >
-
-    <div class="row">
+  <div id="job" class="my-3" >
+    <div class="row m-0 p-0">
       <!--    搜索栏-->
-      <div class="col-3">
-        <div class="card p-3 shadow">
+      <div class="col-3 ">
+        <div class="card p-3 shadow h-100">
           <div class="mt-2">
             <h3 class="fw-bold">Search Jobs</h3>
             <p class="text-muted">550 000+ Available job vacancies</p>
@@ -42,6 +41,8 @@
       </div>
       <!--    岗位卡片-->
       <div class="col-9">
+        <CarouselCard></CarouselCard>
+
         <div class="row g-4">
           <div class="col-4 h-100" v-for="(job,index) in jobs" :key="index">
             <JobCard :job="job"></JobCard>
@@ -50,21 +51,16 @@
       </div>
     </div>
 
-
-
-
-
-
-
   </div>
 </template>
 
 <script setup lang="ts">
 import { pcaTextArr } from 'element-china-area-data'
 import {ref} from 'vue'
-import JobCard from '@/components/resume/JobCard.vue'
+import JobCard from '@/components/JobCard.vue'
 
 import {jobs} from '@/mock/jobs'
+import CarouselCard from '@/components/CarouselCard.vue'
 
 const selectedRegion = ref()
 

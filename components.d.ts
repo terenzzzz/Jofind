@@ -9,7 +9,12 @@ declare module 'vue' {
   export interface GlobalComponents {
     ApplyRecordCard: typeof import('./src/components/profile/ApplyRecordCard.vue')['default']
     BottomFooter: typeof import('./src/components/BottomFooter.vue')['default']
+    CarouselCard: typeof import('./src/components/CarouselCard.vue')['default']
+    ChatBubble: typeof import('./src/components/profile/ChatBubble.vue')['default']
+    ChatUserCard: typeof import('./src/components/profile/ChatUserCard.vue')['default']
     EducationCard: typeof import('./src/components/resume/EducationCard.vue')['default']
+    ElCarousel: typeof import('element-plus/es')['ElCarousel']
+    ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElCascader: typeof import('element-plus/es')['ElCascader']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElDivider: typeof import('element-plus/es')['ElDivider']
@@ -26,8 +31,7 @@ declare module 'vue' {
     ElStep: typeof import('element-plus/es')['ElStep']
     ElSteps: typeof import('element-plus/es')['ElSteps']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
-    JobCard: typeof import('./src/components/resume/JobCard.vue')['default']
-    JobExperience: typeof import('./src/components/JobExperience.vue')['default']
+    JobCard: typeof import('./src/components/JobCard.vue')['default']
     JobExperienceCard: typeof import('./src/components/resume/JobExperienceCard.vue')['default']
     LanguageCard: typeof import('./src/components/resume/LanguageCard.vue')['default']
     ProjectCard: typeof import('./src/components/resume/ProjectCard.vue')['default']
@@ -35,6 +39,5 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     TagButton: typeof import('./src/components/TagButton.vue')['default']
     TopHeader: typeof import('./src/components/TopHeader.vue')['default']
-    WorkExperience: typeof import('./src/components/WorkExperience.vue')['default']
   }
 }

@@ -19,6 +19,11 @@
       <div class="collapse navbar-collapse flex-row-reverse" id="collapsibleNavbar">
         <ul class="navbar-nav d-flex align-items-center">
 
+          <li class="nav-item ">
+            <router-link to="/job" class="item fw-bold text-primary">
+              Jobs
+            </router-link>
+          </li>
 
           <li class="nav-item ">
             <router-link to="/profile" class="item text-decoration-none text-primary">

@@ -40,12 +40,10 @@
     <el-divider />
     <div class="row">
       <div class="col-5"><p class="text-muted">©Copyright Jofind 2024. All rights reserved.</p></div>
-      <div class="col-7">
-        <ul class="d-flex justify-content-around">
-          <li>Privacy Policy</li>
-          <li>Terms & Conditions</li>
-          <li>Cookie Policy</li>
-        </ul>
+      <div class="col-7 row">
+        <div class="col-4">Privacy Policy</div>
+        <div class="col-4">Terms & Conditions</div>
+        <div class="col-4">Cookie Policy</div>
       </div>
     </div>
   </div>

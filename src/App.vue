@@ -1,7 +1,7 @@
-<template class="m-0 p-0">
-  <TopHeader class="m-0 p-0"></TopHeader>
-  <RouterView/>
-  <BottomFooter class="m-0 p-0"></BottomFooter>
+<template class="m-0 p-0 w-100">
+  <TopHeader class="m-0 p-0 w-100"></TopHeader>
+  <RouterView class="w-100"/>
+  <BottomFooter class="m-0 p-0 w-100"></BottomFooter>
 </template>
 
 
