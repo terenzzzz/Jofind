@@ -46,13 +46,20 @@
           </div>
         </div>
 
-        <!--       项目经历经历-->
+        <!--       项目经历-->
         <div class="row mt-5">
           <h3 class="bottom-border">Project experience</h3>
           <div v-for="(project,index) in projects" :key="index">
             <ProjectCard :project="project"></ProjectCard>
           </div>
+        </div>
 
+        <!--       教育经历-->
+        <div class="row mt-5">
+          <h3 class="bottom-border">Education</h3>
+          <div v-for="(education,index) in educations" :key="index">
+            <EducationCard :education="education"></EducationCard>
+          </div>
         </div>
 
       </div>
@@ -69,7 +76,9 @@
 import ProjectCard from '@/components/ProjectCard.vue'
 import { projects } from '@/mock/projects'
 import { jobExperience } from '@/mock/jobExperience'
-import JobExperience from '@/components/JobExperience.vue'
+import { educations } from '@/mock/educations'
+import JobExperience from '@/components/JobExperienceCard.vue'
+import EducationCard from '@/components/EducationCard.vue'
 
 </script>
 

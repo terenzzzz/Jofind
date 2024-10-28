@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BottomFooter: typeof import('./src/components/BottomFooter.vue')['default']
+    EducationCard: typeof import('./src/components/EducationCard.vue')['default']
     ElCascader: typeof import('element-plus/es')['ElCascader']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElInput: typeof import('element-plus/es')['ElInput']
@@ -17,6 +18,7 @@ declare module 'vue' {
     ElSelect: typeof import('element-plus/es')['ElSelect']
     JobCard: typeof import('./src/components/JobCard.vue')['default']
     JobExperience: typeof import('./src/components/JobExperience.vue')['default']
+    JobExperienceCard: typeof import('./src/components/JobExperienceCard.vue')['default']
     ProjectCard: typeof import('./src/components/ProjectCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

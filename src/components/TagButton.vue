@@ -11,7 +11,7 @@ import { defineProps } from 'vue';
 
 defineProps<{
   tag: {
-    _id: number;
+    _id?: number;
     name: string;
   }
 }>()
