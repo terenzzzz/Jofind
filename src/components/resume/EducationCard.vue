@@ -19,7 +19,7 @@
 
         <div class="d-flex flex-column">
           <p class="text-muted">Rank</p>
-          <p>{{ education.rank? education.rank : 'Not Given' }}</p>
+          <p>{{ education.rank? education.rank : '/' }}</p>
         </div>
       </div>
 

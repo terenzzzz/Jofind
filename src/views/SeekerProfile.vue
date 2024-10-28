@@ -24,8 +24,8 @@
         </div>
 <!--        个人优势-->
         <div class="row mt-5">
-          <h3 class="bottom-border">Personal advantage</h3>
-          <p>本人工作勤奋主动，学习能力强，有强烈责任心，能自主学习钻研与工作相关的知识和技术；能够快速适应各种工作环境，具有良好的团队精神，敬业精神和沟通协调能力，为人诚恳，踏实能干，认真负责，敢于面对困难和挑战。对软件开发和 Web前端后端开发有持续的热情，喜欢探索和钻研新产品，有志在该领域长足发展。</p>
+          <h3 class="bottom-border">Self-evaluation</h3>
+          <p>I am diligent and active in work, have strong learning ability and strong sense of responsibility, and can independently study and study job-related knowledge and technology; Able to quickly adapt to various working environments, with good team spirit, professionalism and communication and coordination skills, sincere, practical and capable, serious and responsible, dare to face difficulties and challenges. Have a continuous passion for software development and Web front-end and back-end development, like to explore and study new products, and have the ambition to develop in this field.</p>
         </div>
 
 <!--        期望职位-->
@@ -62,6 +62,15 @@
           </div>
         </div>
 
+        <!--       语言能力-->
+        <div class="row mt-5">
+          <h3 class="bottom-border">Education</h3>
+          <div v-for="(lang,index) in languages" :key="index">
+            <LanguageCard :language="lang"></LanguageCard>
+          </div>
+        </div>
+
+
       </div>
     </div>
     </div>
@@ -73,12 +82,14 @@
 </template>
 
 <script setup lang="ts">
-import ProjectCard from '@/components/ProjectCard.vue'
-import { projects } from '@/mock/projects'
-import { jobExperience } from '@/mock/jobExperience'
-import { educations } from '@/mock/educations'
-import JobExperience from '@/components/JobExperienceCard.vue'
-import EducationCard from '@/components/EducationCard.vue'
+import ProjectCard from '@/components/resume/ProjectCard.vue'
+import { projects } from '@/mock/resume/projects'
+import { jobExperience } from '@/mock/resume/jobExperience'
+import { educations } from '@/mock/resume/educations'
+import { languages } from '@/mock/resume/languages'
+import JobExperience from '@/components/resume/JobExperienceCard.vue'
+import EducationCard from '@/components/resume/EducationCard.vue'
+import LanguageCard from '@/components/resume/LanguageCard.vue'
 
 </script>
 

@@ -8,7 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BottomFooter: typeof import('./src/components/BottomFooter.vue')['default']
-    EducationCard: typeof import('./src/components/EducationCard.vue')['default']
+    EducationCard: typeof import('./src/components/resume/EducationCard.vue')['default']
     ElCascader: typeof import('element-plus/es')['ElCascader']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElInput: typeof import('element-plus/es')['ElInput']
@@ -16,10 +16,11 @@ declare module 'vue' {
     ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElSelect: typeof import('element-plus/es')['ElSelect']
-    JobCard: typeof import('./src/components/JobCard.vue')['default']
+    JobCard: typeof import('./src/components/resume/JobCard.vue')['default']
     JobExperience: typeof import('./src/components/JobExperience.vue')['default']
-    JobExperienceCard: typeof import('./src/components/JobExperienceCard.vue')['default']
-    ProjectCard: typeof import('./src/components/ProjectCard.vue')['default']
+    JobExperienceCard: typeof import('./src/components/resume/JobExperienceCard.vue')['default']
+    LanguageCard: typeof import('./src/components/resume/LanguageCard.vue')['default']
+    ProjectCard: typeof import('./src/components/resume/ProjectCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TagButton: typeof import('./src/components/TagButton.vue')['default']

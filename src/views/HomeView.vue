@@ -62,7 +62,7 @@
 <script setup lang="ts">
 import { pcaTextArr } from 'element-china-area-data'
 import {ref} from 'vue'
-import JobCard from '@/components/JobCard.vue'
+import JobCard from '@/components/resume/JobCard.vue'
 
 import {jobs} from '@/mock/jobs'
 
