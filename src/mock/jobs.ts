@@ -12,7 +12,8 @@ export const jobs = [
       longitude: -122.0775,
       size: 150000,
       industry: "Technology",
-      founded: "1996"
+      founded: "1996",
+      background: "Google is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, search engines, cloud computing, software, and hardware. It is considered one of the Big Five technology companies in the American information technology industry, alongside Amazon, Apple, Facebook, and Microsoft."
     },
     tags: [
       { _id: 1, name: "Software Development" },
@@ -44,7 +45,8 @@ export const jobs = [
       longitude: -122.1215,
       size: 180000,
       industry: "Technology",
-      founded: "1996"
+      founded: "1975",
+      background: "Microsoft, founded in 1975 by Bill Gates and Paul Allen, is a multinational technology company headquartered in Redmond, Washington, USA, that specializes in software development, hardware manufacturing, and cloud computing services, with products such as Windows, Microsoft Office, Azure, and Surface devices."
     },
     tags: [
       { _id: 3, name: "Cloud Computing" },
@@ -76,7 +78,8 @@ export const jobs = [
       longitude: -122.1430,
       size: 50000,
       industry: "Automotive",
-      founded: "1996"
+      founded: "2003",
+      background: "Tesla, founded in 2003 by Martin Eberhard and Mark Tarpenning (with Elon Musk later taking a leading role), is an American electric vehicle and clean energy company that designs, manufactures, and sells high-performance electric cars, solar products, and energy storage systems, aiming to accelerate the world's transition to sustainable energy."
     },
     tags: [
       { _id: 5, name: "Electric Vehicles" },
@@ -108,7 +111,8 @@ export const jobs = [
       longitude: -122.3321,
       size: 350000,
       industry: "Retail",
-      founded: "1996"
+      founded: "1994",
+      background: "Amazon, founded in 1994 by Jeff Bezos, is an American multinational technology company that started as an online bookstore but has grown to become a global e-commerce giant, offering a wide range of products and services including cloud computing (through Amazon Web Services), streaming media (Prime Video and Amazon Music), and electronic devices (such as Kindle e-readers and Echo smart speakers)."
     },
     tags: [
       { _id: 7, name: "E-commerce" },
@@ -140,7 +144,8 @@ export const jobs = [
       longitude: -122.0311,
       size: 150000,
       industry: "Consumer Electronics",
-      founded: "1996"
+      founded: "1966",
+      background: "Founded in 1976 by Steve Jobs, Steve Wozniak, and Ronald Wayne, Apple Inc. is an American multinational technology company that designs, manufactures, and markets consumer electronics, computer software, and online services, known for its innovative products like the iPhone, iPad, Mac, and Apple Watch."
     },
     tags: [
       { _id: 9, name: "iOS Development" },
@@ -172,7 +177,8 @@ export const jobs = [
       longitude: 114.0578,
       size: 190000,
       industry: "Telecommunications",
-      founded: "1996"
+      founded: "1987",
+      background: "Huawei Technologies Co., Ltd., founded in 1987 by Ren Zhengfei, is a Chinese multinational technology company specializing in telecommunications equipment and networking solutions, as well as consumer electronics including smartphones and tablets, becoming a key player in the global 5G network infrastructure market."
     },
     tags: [
       { _id: 11, name: "5G Technology" },

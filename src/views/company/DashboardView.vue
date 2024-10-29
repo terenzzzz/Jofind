@@ -1,5 +1,5 @@
 <template>
-  <div class="row my-5">
+  <div class="row my-5" style="min-height: 80vh">
     <!--    左侧导航栏-->
     <div class="col-2">
       <el-menu default-active="1" class="h-100">
@@ -25,7 +25,6 @@
           <el-menu-item index="4" class="w-100">
             <i class="bi bi-chat-text me-2 fs-5"></i>
             <span class="fs-5 po">Message</span>
-            <span class="badge text-bg-danger ms-2">5</span>
           </el-menu-item>
         </router-link>
       </el-menu>

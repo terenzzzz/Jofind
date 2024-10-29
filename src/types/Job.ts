@@ -7,7 +7,8 @@ interface Company {
   longitude: number
   size: number // 公司人数规模
   industry: string,
-  founded: string
+  founded: string,
+  background: string
 }
 
 interface Tag {

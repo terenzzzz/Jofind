@@ -1,12 +1,14 @@
 <template>
   <div id="seeker-profile" class="container">
-
     <div class="row mt-3">
       <div class="card p-5 border-0">
         <!--    公司基本信息-->
         <div class="d-flex justify-content-between">
           <div class="d-flex">
-            <div class="img-container border border-2 p-2" style="height: 80px; width: 80px">
+            <div
+              class="img-container border border-2 p-2"
+              style="height: 80px; width: 80px"
+            >
               <img :src="jobs[0].company.logo" class="img-fluid" />
             </div>
 
@@ -15,8 +17,7 @@
               <p class="text-muted">{{ jobs[0].company.location }}</p>
             </div>
           </div>
-          <p class="text-primary"> Edit </p>
-
+          <p class="text-primary">Edit</p>
         </div>
         <div class="row py-2 gx-5 gy-3 mt-3">
           <div class="col-3 d-flex flex-column">
@@ -53,10 +54,15 @@
             <p class="text-muted">Longitude</p>
             <p class="fw-bold">{{ jobs[0].company.longitude }}</p>
           </div>
-        </div>
-        <el-divider/>
 
-<!--        状态信息-->
+          <div class="col-12 d-flex flex-column">
+            <p class="text-muted">Company Background</p>
+            <p class="fw-bold">{{ jobs[0].company.background }}</p>
+          </div>
+        </div>
+        <el-divider />
+
+        <!--        状态信息-->
         <div class="row">
           <div class="col-4">
             <div class="card rounded-3 p-3">
@@ -84,16 +90,19 @@
   </div>
 
   <!--    个人简历-->
-  <div class="row mt-5">
-
-  </div>
+  <div class="row mt-5"></div>
 </template>
 
 <script setup lang="ts">
-import {jobs} from '@/mock/jobs'
+import { jobs } from '@/mock/jobs'
+import { ref } from 'vue'
+import { useTransition } from '@vueuse/core'
 
+const source = ref(0)
+const outputValue = useTransition(source, {
+  duration: 1000,
+})
+source.value = 10
 </script>
 
-<style scoped lang="css">
-
-</style>
+<style scoped lang="css"></style>
