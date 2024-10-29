@@ -27,7 +27,7 @@
 
           <li class="nav-item ">
             <router-link to="/profile" class="item text-decoration-none text-primary">
-              <i class="bi bi-person-circle fs-3"></i>
+              <img src="https://ui-avatars.com/api/?name=Terence'" class="img-fluid rounded-circle" style="max-width: 50px">
             </router-link>
           </li>
 

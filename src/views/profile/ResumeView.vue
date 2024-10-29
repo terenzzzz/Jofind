@@ -6,7 +6,7 @@
         <!--    个人基本信息-->
         <div class="row g-4">
           <div class="col-12 order-1 col-md-10 order-md-0">
-            <h3>Zhicong Jiang</h3>
+            <h1>Beluga</h1>
             <div class="d-flex mt-5">
               <li><i class="bi bi-briefcase-fill me-1"></i>Fresh Graduate</li>
               <li class="mx-5"><i class="bi bi-mortarboard-fill me-1"></i>Master</li>
@@ -18,7 +18,7 @@
             </div>
           </div>
           <div class="col-4 order-0 mx-auto col-md-2 order-md-1">
-            <img src="../../assets/avatar.jpg" class="img-fluid">
+            <img src="../../assets/beluga.jpg" class="img-fluid">
           </div>
 
         </div>

@@ -5,11 +5,11 @@
     <div class="card p-3 rounded-3">
       <div class="row">
         <div class="col-4 mx-auto col-md-2">
-          <img src="../../assets/avatar.jpg" class="img-fluid">
+          <img src="../../assets/beluga.jpg" class="img-fluid">
         </div>
         <div class="col-12 col-md-10 p-3">
           <div class="d-flex justify-content-between">
-            <h3>Zhicong Jiang</h3>
+            <h3>Beluga</h3>
             <el-select
               v-model="selectedSttatus"
               placeholder="Status"
