@@ -1,148 +1,191 @@
+
+
 export const jobs = [
   {
-    "company": {
-      "name": "Google",
-      "location": "北京, 中国",
-      "logo": "https://ts1.cn.mm.bing.net/th/id/R-C.fa5e67376018e06bd8ffb06b3129a717?rik=7G91umXpvhJBjg&riu=http%3a%2f%2f1000logos.net%2fwp-content%2fuploads%2f2016%2f10%2fapple-emblem.jpg&ehk=oZn9asOkaHE7jnq1KK2bsdCC3PpQvx52gN9eXh7e294%3d&risl=&pid=ImgRaw&r=0", // 假设有对应的 google.jpg 图片
-      "favoriteIcon": "bi bi-bookmark-star" // 使用的图标类名
+    id: 1,
+    company: {
+      name: "Google",
+      location: "Mountain View, CA",
+      logo: "https://tse2-mm.cn.bing.net/th/id/OIP-C.D6P-BO32wCApcPIIjt6p5wHaHa?w=174&h=180&c=7&r=0&o=5&pid=1.7",
+      url: "https://www.google.com",
+      latitude: 37.4056,
+      longitude: -122.0775,
+      size: 150000,
+      industry: "Technology",
+      founded: "1996"
     },
-    "tags": [
-      { "_id": 1, "name": "Full-Time" },
-      { "_id": 2, "name": "Remote" }
+    tags: [
+      { _id: 1, name: "Software Development" },
+      { _id: 2, name: "Artificial Intelligence" },
     ],
-    "position": "Software Engineer",
-    "description": "Can develop high-quality software products.",
-    "salary": "2500"
+    department: "Engineering",
+    experience: "3-5 years",
+    education: "Bachelor's Degree",
+    location: "Remote",
+    latitude: 37.4056,
+    longitude: -122.0775,
+    role: "Software Engineer",
+    conclusion: "Develop and maintain high-quality software applications.",
+    description: "As a Software Engineer at Google, you will be responsible for designing, developing, testing, and maintaining high-quality software applications. You will work closely with cross-functional teams to define, design, and ship new features. You will be expected to take ownership of the code you write and collaborate with your peers to continuously improve the product. This is a remote position, but you will need to be available for occasional meetings and check-ins with your team.",
+    requirements: "Proficiency in programming languages such as Java, Python, or C++; Experience with software development methodologies, including Agile and Scrum; Strong understanding of data structures, algorithms, and software design principles; Ability to work independently and collaboratively in a fast-paced environment; Excellent communication and problem-solving skills; Bachelor's degree in Computer Science, Engineering, or a related field; Experience with cloud platforms, such as Google Cloud Platform (GCP), is a plus; Knowledge of machine learning and artificial intelligence is a bonus but not required.",
+    salaryFrom: "12",
+    salaryTo: "18",
+    startDate: "2023-09-01",
+    endDate: "2023-12-30"
   },
   {
-    "company": {
-      "name": "Microsoft",
-      "location": "上海, 中国",
-      "logo": "https://purepng.com/public/uploads/large/purepng.com-microsoft-logo-iconlogobrand-logoiconslogos-251519939091wmudn.png", // 假设有对应的 microsoft.jpg 图片
-      "favoriteIcon": "bi bi-bookmark-star"
+    id: 2,
+    company: {
+      name: "Microsoft",
+      location: "Redmond, WA",
+      logo: "https://tse2-mm.cn.bing.net/th/id/OIP-C.PWoq1WvDQDxc_MPv4Jt0GwHaHa?w=179&h=180&c=7&r=0&o=5&pid=1.7",
+      url: "https://www.microsoft.com",
+      latitude: 47.6786,
+      longitude: -122.1215,
+      size: 180000,
+      industry: "Technology",
+      founded: "1996"
     },
-    "tags": [
-      { "_id": 3, "name": "Part-Time" },
-      { "_id": 4, "name": "Internship" }
+    tags: [
+      { _id: 3, name: "Cloud Computing" },
+      { _id: 4, name: "Data Science" },
     ],
-    "position": "Data Analyst",
-    "description": "Can analyze large datasets and provide insights.",
-    "salary": "1800"
+    department: "Azure",
+    experience: "2-4 years",
+    education: "Master's Degree",
+    location: "Redmond, WA",
+    latitude: 37.4056,
+    longitude: -122.0775,
+    role: "Cloud Solutions Architect",
+    conclusion: "Design and implement cloud-based solutions for customers.",
+    requirements: "Experience with Azure and cloud technologies.",
+    salaryFrom: "13",
+    salaryTo: "19",
+    startDate: "2023-09-01",
+    endDate: "2023-12-30"
   },
   {
-    "company": {
-      "name": "Tesla",
-      "location": "深圳, 中国",
-      "logo": "https://tse3-mm.cn.bing.net/th/id/OIP-C.535ly9am6VJl6eLg3DlEkwHaHa?rs=1&pid=ImgDetMain", // 假设有对应的 tesla.jpg 图片
-      "favoriteIcon": "bi bi-bookmark-star"
+    id: 3,
+    company: {
+      name: "Tesla",
+      location: "Palo Alto, CA",
+      logo: "data:image/jpeg;base64,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",
+      url: "https://www.tesla.com",
+      latitude: 37.4419,
+      longitude: -122.1430,
+      size: 50000,
+      industry: "Automotive",
+      founded: "1996"
     },
-    "tags": [
-      { "_id": 5, "name": "Contract" }
+    tags: [
+      { _id: 5, name: "Electric Vehicles" },
+      { _id: 6, name: "Autonomous Driving" },
     ],
-    "position": "Electrician",
-    "description": "Can maintain and repair electrical systems.",
-    "salary": "2200"
+    department: "Autopilot",
+    experience: "5-7 years",
+    education: "PhD",
+    location: "Palo Alto, CA",
+    latitude: 37.4056,
+    longitude: -122.0775,
+    role: "Machine Learning Engineer",
+    conclusion: "Develop machine learning models for autonomous driving.",
+    requirements: "PhD in Computer Science or related field with ML experience.",
+    salaryFrom: "15",
+    salaryTo: "25",
+    startDate: "2023-09-01",
+    endDate: "2023-12-30"
   },
   {
-    "company": {
-      "name": "Amazon",
-      "location": "杭州, 中国",
-      "logo": "https://img.ixintu.com/download/jpg/202001/9c6eec7eb6e361b5256ff543d64c9632.jpg!ys", // 假设有对应的 amazon.jpg 图片
-      "favoriteIcon": "bi bi-bookmark-star"
+    id: 4,
+    company: {
+      name: "Amazon",
+      location: "Seattle, WA",
+      logo: "https://tse3-mm.cn.bing.net/th/id/OIP-C.RbDmmt0F982-5AzJmXvXtAHaHa?w=180&h=180&c=7&r=0&o=5&pid=1.7",
+      url: "https://www.amazon.com",
+      latitude: 47.6062,
+      longitude: -122.3321,
+      size: 350000,
+      industry: "Retail",
+      founded: "1996"
     },
-    "tags": [
-      { "_id": 6, "name": "Full-Time" },
-      { "_id": 7, "name": "On-Site" }
+    tags: [
+      { _id: 7, name: "E-commerce" },
+      { _id: 8, name: "Web Development" },
     ],
-    "position": "Warehouse Worker",
-    "description": "Can efficiently manage and organize warehouse inventory.",
-    "salary": "600"
+    department: "Retail",
+    experience: "1-3 years",
+    education: "Bachelor's Degree",
+    location: "Seattle, WA",
+    latitude: 37.4056,
+    longitude: -122.0775,
+    role: "Web Developer",
+    conclusion: "Develop and maintain Amazon's e-commerce platform.",
+    requirements: "Proficiency in web development languages such as HTML, CSS, and JavaScript.",
+    salaryFrom: "9",
+    salaryTo: "13",
+    startDate: "2023-09-01",
+    endDate: "2023-12-30"
   },
   {
-    "company": {
-      "name": "Facebook",
-      "location": "成都, 中国",
-      "logo": "https://tse4-mm.cn.bing.net/th/id/OIP-C.rRaApi8ltGdLDTztahp9IQHaHa?rs=1&pid=ImgDetMain", // 假设有对应的 facebook.jpg 图片
-      "favoriteIcon": "bi bi-bookmark-star"
+    id: 5,
+    company: {
+      name: "Apple",
+      location: "Cupertino, CA",
+      logo: "https://tse2-mm.cn.bing.net/th/id/OIP-C.1QFIX_kcG42KEhhJylACdgHaHa?w=180&h=180&c=7&r=0&o=5&pid=1.7",
+      url: "https://www.apple.com",
+      latitude: 37.3182,
+      longitude: -122.0311,
+      size: 150000,
+      industry: "Consumer Electronics",
+      founded: "1996"
     },
-    "tags": [
-      { "_id": 8, "name": "Freelance" }
+    tags: [
+      { _id: 9, name: "iOS Development" },
+      { _id: 10, name: "User Experience" },
     ],
-    "position": "Social Media Manager",
-    "description": "Can manage and grow social media accounts.",
-    "salary": "2000"
+    department: "Software",
+    experience: "4-6 years",
+    education: "Bachelor's Degree",
+    location: "Cupertino, CA",
+    latitude: 37.4056,
+    longitude: -122.0775,
+    role: "iOS Developer",
+    conclusion: "Develop and maintain iOS applications for Apple's ecosystem.",
+    requirements: "Experience with Swift and iOS development.",
+    salaryFrom: "14",
+    salaryTo: "22",
+    startDate: "2023-09-01",
+    endDate: "2023-12-30"
   },
   {
-    "company": {
-      "name": "Alibaba",
-      "location": "香港, 中国",
-      "logo": "https://ts1.cn.mm.bing.net/th/id/R-C.62fbca15096e6265dc760f45f8a49c03?rik=pMLmaVO%2b5GWezw&riu=http%3a%2f%2fwww.kuaipng.com%2fUploads%2fpic%2fw%2f2023%2f03-22%2f136505%2fwater_136505_698_698_.png&ehk=4ETlX4oR3Wdwk3UZUa8eoYIIxZE69TEgPRGTSk3v48g%3d&risl=&pid=ImgRaw&r=0", // 假设有对应的 alibaba.jpg 图片
-      "favoriteIcon": "bi bi-bookmark-star"
+    id: 6,
+    company: {
+      name: "Huawei",
+      location: "Shenzhen, China",
+      logo: "https://tse4-mm.cn.bing.net/th/id/OIP-C.IPwUhaVwgoB9hjtue2WvYAAAAA?w=145&h=150&c=7&r=0&o=5&pid=1.7",
+      url: "https://www.huawei.com",
+      latitude: 22.5431,
+      longitude: 114.0578,
+      size: 190000,
+      industry: "Telecommunications",
+      founded: "1996"
     },
-    "tags": [
-      { "_id": 9, "name": "Full-Time" },
-      { "_id": 10, "name": "Remote" }
+    tags: [
+      { _id: 11, name: "5G Technology" },
+      { _id: 12, name: "Network Engineering" },
     ],
-    "position": "Product Manager",
-    "description": "Can develop and manage product roadmaps.",
-    "salary": "3000"
+    department: "R&D",
+    experience: "6-8 years",
+    education: "Master's Degree",
+    location: "Shenzhen, China",
+    latitude: 37.4056,
+    longitude: -122.0775,
+    role: "5G Engineer",
+    conclusion: "Develop and implement 5G technologies for Huawei's network infrastructure.",
+    requirements: "Master's degree in Telecommunications or related field with 5G experience.",
+    salaryFrom: "2",
+    salaryTo: "3",
+    startDate: "2023-09-01",
+    endDate: "2023-12-30"
   },
-  {
-    "company": {
-      "name": "Huawei",
-      "location": "台北, 中国",
-      "logo": "https://tse4-mm.cn.bing.net/th/id/OIP-C.NxsWY7xp-FyIqA4fD0BKngHaGB?rs=1&pid=ImgDetMain", // 假设有对应的 huawei.jpg 图片
-      "favoriteIcon": "bi bi-bookmark-star"
-    },
-    "tags": [
-      { "_id": 11, "name": "Part-Time" }
-    ],
-    "position": "Network Engineer",
-    "description": "Can configure and troubleshoot network systems.",
-    "salary": "2400"
-  },
-  {
-    "company": {
-      "name": "Nike",
-      "location": "澳门, 中国",
-      "logo": "https://ts1.cn.mm.bing.net/th/id/R-C.fb0a660aa90cffbb160699efb8a75bf0?rik=Q28ia6RPsKjfHw&riu=http%3a%2f%2fwww.kuaipng.com%2fUploads%2fpic%2fw%2f2020%2f06-04%2f84213%2fwater_84213_698_698.12_.png&ehk=uNch48BiT4r3EkbViNKQ6mtouawY5QckjHh2Pi4Nw6Q%3d&risl=&pid=ImgRaw&r=0", // 假设有对应的 nike.jpg 图片
-      "favoriteIcon": "bi bi-bookmark-star"
-    },
-    "tags": [
-      { "_id": 12, "name": "Contract" },
-      { "_id": 13, "name": "On-Site" }
-    ],
-    "position": "Marketing Specialist",
-    "description": "Can develop and execute marketing campaigns.",
-    "salary": "2100"
-  },
-  {
-    "company": {
-      "name": "Adidas",
-      "location": "新加坡, 新加坡",
-      "logo": "https://tse2-mm.cn.bing.net/th/id/OIP-C.9GvhLPZ63zLUdRGWJhfmUwHaHa?rs=1&pid=ImgDetMain", // 假设有对应的 adidas.jpg 图片
-      "favoriteIcon": "bi bi-bookmark-star"
-    },
-    "tags": [
-      { "_id": 14, "name": "Freelance" },
-      { "_id": 15, "name": "Remote" }
-    ],
-    "position": "Graphic Designer",
-    "description": "Can create visually appealing designs.",
-    "salary": "1900"
-  },
-  {
-    "company": {
-      "name": "Starbucks",
-      "location": "吉隆坡, 马来西亚",
-      "logo": "https://tse4-mm.cn.bing.net/th/id/OIP-C.P8fTmvKn_cV1K4SnPWgOAAHaHa?rs=1&pid=ImgDetMain", // 假设有对应的 starbucks.jpg 图片
-      "favoriteIcon": "bi bi-bookmark-star"
-    },
-    "tags": [
-      { "_id": 16, "name": "Full-Time" }
-    ],
-    "position": "Barista",
-    "description": "Can prepare and serve high-quality coffee drinks.",
-    "salary": "1500"
-  }
 ]
