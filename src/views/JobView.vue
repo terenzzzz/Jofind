@@ -1,5 +1,5 @@
 <template>
-  <div id="job" class="my-3" >
+  <div id="job-view" class="my-3" >
     <div class="row m-0 p-0">
       <!--    搜索栏-->
       <div class="col-3 ">
@@ -43,9 +43,9 @@
       <div class="col-9">
         <CarouselCard></CarouselCard>
 
-        <div class="row g-4">
-          <div class="col-4 h-100" v-for="(job,index) in jobs" :key="index">
-            <JobCard :job="job"></JobCard>
+        <div class="row g-4 d-flex flex-wrap">
+          <div class="col-4 flex-fill" v-for="(job,index) in jobs" :key="index">
+            <JobCard  :job="job" class="h-100"></JobCard>
           </div>
         </div>
       </div>

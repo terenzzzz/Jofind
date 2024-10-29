@@ -33,21 +33,15 @@
         type="button"
         class="btn btn-outline-primary btn-sm"
         data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+        :data-bs-target="'#'+job.id"
       >
         View
       </button>
     </div>
 
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" :id="job.id" tabindex="-1" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-dialog-scrollable modal-xl">
-        <div class="modal-content card p-3 overflow-auto">
+        <div class="modal-content card p-5 overflow-auto">
           <div class="row">
             <!--            岗位信息-->
             <div class="col-8">
@@ -191,8 +185,8 @@
 
               <el-divider />
 
-              <div class="card rounded-5" v-if="isShowMap">
-                <div id="map" style="height: 200px"></div>
+              <div class="card overflow-hidden" v-if="isShowMap">
+                <div :id="'map'+job.id" style="height: 200px"></div>
               </div>
             </div>
           </div>
@@ -208,15 +202,17 @@ import { convertISOToDate } from '@/utils/timeConverter'
 
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { ref, nextTick, reactive } from 'vue'
+import { ref, nextTick } from 'vue'
 
 const isShowMap = ref(false)
+
 
 function toggleMap() {
   isShowMap.value = !isShowMap.value // 切换显示状态
   nextTick(() => {
     if (isShowMap.value) {
-      const map = L.map('map').setView([23.1291, 113.2644], 10)
+      console.log(props.job.id)
+      const map = L.map('map'+props.job.id).setView([props.job.latitude.toString(), props.job.longitude.toString()], 9)
       L.tileLayer(
         'https://webrd04.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}',
         {
@@ -225,13 +221,15 @@ function toggleMap() {
           minZoom: 8,
         },
       ).addTo(map)
-      L.marker([23.1291, 113.2644]).addTo(map)
+      L.marker([props.job.latitude.toString(), props.job.longitude.toString()]).addTo(map)
     }
   })
 }
 
 // 使用 defineProps 来接收 job prop
-defineProps<{ job: Job }>()
+const props = defineProps<{ job: Job }>()
+
+
 
 </script>
 
