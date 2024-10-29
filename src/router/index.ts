@@ -7,6 +7,10 @@ import Profile from '@/views/profile/ProfileView.vue'
 import OverallView from '@/views/profile/OverallView.vue'
 import MessageView from '@/views/profile/MessageView.vue'
 import JobView from '@/views/JobView.vue'
+import DashboardView from '@/views/company/DashboardView.vue'
+import CompanyView from '@/views/company/CompanyView.vue'
+import PostedJobView from '@/views/company/PostedJobView.vue'
+import ApplicationView from '@/views/company/ApplicationView.vue'
 
 
 const router = createRouter({
@@ -53,6 +57,36 @@ const router = createRouter({
           name: 'message',
           component: MessageView,
         }
+      ]
+    },
+
+    // Company router
+    {
+      path: '/dashboard',
+      name: '/dashboard',
+      component: DashboardView,
+      redirect: '/dashboard/company',
+      children:[
+        {
+          path: 'company',
+          name: 'company',
+          component: CompanyView,
+        },
+        {
+          path: 'postedjob',
+          name: 'postedjob',
+          component: PostedJobView,
+        },
+        {
+          path: 'application',
+          name: 'application',
+          component: ApplicationView,
+        },
+        {
+          path: 'message',
+          name: 'message',
+          component: MessageView,
+        },
       ]
     },
   ],
