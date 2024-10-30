@@ -12,6 +12,7 @@ declare module 'vue' {
     CarouselCard: typeof import('./src/components/CarouselCard.vue')['default']
     ChatBubble: typeof import('./src/components/profile/ChatBubble.vue')['default']
     ChatUserCard: typeof import('./src/components/profile/ChatUserCard.vue')['default']
+    CompanyCard: typeof import('./src/components/company/CompanyCard.vue')['default']
     EducationCard: typeof import('./src/components/resume/EducationCard.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']

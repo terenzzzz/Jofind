@@ -25,6 +25,7 @@
           <el-menu-item index="4" class="w-100">
             <i class="bi bi-chat-text me-2 fs-5"></i>
             <span class="fs-5 po">Message</span>
+            <span class="badge text-bg-danger ms-2">5</span>
           </el-menu-item>
         </router-link>
       </el-menu>
