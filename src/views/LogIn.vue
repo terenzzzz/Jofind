@@ -93,18 +93,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref, watch, h} from 'vue'
 import { login } from '@/api/user'
 import {useUserStore} from '@/stores/User'
 import {accountType} from '@/enums/accountType'
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router'
+import { ElNotification } from 'element-plus'
+
+
 
 const userStore = useUserStore()
-
 const password = ref()
 const email = ref()
 
 const router = useRouter()
+const route = useRoute()
 
 async function loginHandler() {
   try {
@@ -132,6 +135,24 @@ async function loginHandler() {
     console.error('Error during login:', error);
   }
 }
+
+
+// 使用 watch 来监听路由路径的变化
+watch(
+  () => route.path,
+  (newPath, oldPath) => {
+    const query = route.query
+    if (query.status == 'SignedUp') {
+      ElNotification({
+        title: 'Success',
+        message: 'You Have Successfully Signed Up!',
+        type: 'success',
+      })
+    }
+  },
+  { immediate: true } // 设置 immediate 为 true 以在组件挂载时立即执行一次
+);
+
 </script>
 
 <style scoped lang="css">
