@@ -129,7 +129,12 @@ async function loginHandler() {
         await router.push({ path: '/dashboard' });
       }
     } else {
-      alert('Login failed: ' + response.data.message);
+      ElNotification({
+        title: 'Log in Failed',
+        message: 'Email and Password Not Match',
+        type: 'error',
+      })
+      // alert('Login failed: ' + response.data.message);
     }
   } catch (error) {
     console.error('Error during login:', error);
