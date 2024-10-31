@@ -16,6 +16,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "animate.css": "^4.1.1",
+    "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "element-china-area-data": "^6.1.0",
@@ -23,7 +24,7 @@
     "leaflet": "^1.9.4",
     "pinia": "^2.2.4",
     "vue": "^3.5.12",
-    "vue-router": "^4.4.5",
+    "vue-router": "^4.0.13",
     "vue3-country-region-select": "^1.0.0",
     "wowjs": "^1.1.3"
   },

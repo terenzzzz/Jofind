@@ -12,7 +12,6 @@ import CompanyView from '@/views/company/CompanyView.vue'
 import PostedJobView from '@/views/company/PostedJobView.vue'
 import ApplicationView from '@/views/company/ApplicationView.vue'
 
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -53,8 +52,8 @@ const router = createRouter({
           component: ResumeView,
         },
         {
-          path: 'message',
-          name: 'message',
+          path: 'chat',
+          name: 'chat',
           component: MessageView,
         }
       ]
@@ -100,4 +99,20 @@ const router = createRouter({
     }
   }
 })
+
+// 路由守卫
+router.beforeEach((to, from, next) => {
+  console.log('Navigating to:', to.path); // 添加日志
+
+
+  if (to.path !== '/' && to.path !== '/login' && to.path !== '/signup' && !localStorage.getItem("access_token")) {
+    return router.push({
+      path: '/'
+    });
+  }else {
+    next();
+  }
+
+});
+
 export default router

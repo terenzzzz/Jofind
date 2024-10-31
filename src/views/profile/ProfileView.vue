@@ -15,7 +15,7 @@
             <span class="fs-5">Resume</span>
           </el-menu-item>
         </router-link>
-        <router-link to="/profile/message" class="d-flex align-items-center w-100">
+        <router-link to="/profile/chat" class="d-flex align-items-center w-100">
           <el-menu-item index="3" class="w-100">
               <i class="bi bi-chat-text me-2 fs-5"></i>
               <span class="fs-5 po">Message</span>
