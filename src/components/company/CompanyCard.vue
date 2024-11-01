@@ -1,63 +1,69 @@
 
 
 <template>
-  <div class="card p-4">
+  <div class="card p-4" v-if="updatedCompany">
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex">
         <div
           class="img-container border border-2 p-2"
           style="height: 80px; width: 80px"
         >
-          <img :src="job.company.logo" class="img-fluid" />
+          <img :src="updatedCompany.logo? 'data:image/png;base64,' + updatedCompany.logo: ''" class="img-fluid" />
         </div>
         <div class="company d-flex flex-column justify-content-center ms-3">
-          <h5 class="fw-bold">{{ job.company.name }}</h5>
-          <p class="text-muted">{{ job.company.location }}</p>
+          <h5 class="fw-bold">{{ updatedCompany.name }}</h5>
+          <p class="text-muted">{{ updatedCompany.location }}</p>
         </div>
-      </div>
+      </div >
       <p class="btn btn-outline-primary"  data-bs-toggle="modal" data-bs-target="#companyEditModal" v-if="canEdit">Edit</p>
     </div>
     <div class="row py-2 gx-5 gy-3 mt-3">
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Founded</p>
-        <p class="fw-bold">{{ job.company.founded }}</p>
+        <p class="fw-bold">{{ updatedCompany.founded }}</p>
       </div>
 
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Industry</p>
-        <p class="fw-bold">{{ job.company.industry }}</p>
+        <p class="fw-bold">{{ updatedCompany.industry }}</p>
       </div>
 
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Number of employee</p>
-        <p class="fw-bold">{{ job.company.size }}</p>
+        <p class="fw-bold">{{ updatedCompany.size }}</p>
       </div>
 
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Website</p>
-        <p class="fw-bold">{{ job.company.url }}</p>
+        <p class="fw-bold">{{ updatedCompany.website }}</p>
       </div>
 
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Location</p>
-        <p class="fw-bold">{{ job.company.location }}</p>
+        <p class="fw-bold">{{ updatedCompany.location }}</p>
       </div>
 
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Latitude</p>
-        <p class="fw-bold">{{ job.company.latitude }}</p>
+        <p class="fw-bold">{{ updatedCompany.latitude }}</p>
       </div>
 
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Longitude</p>
-        <p class="fw-bold">{{ job.company.longitude }}</p>
+        <p class="fw-bold">{{ updatedCompany.longitude }}</p>
       </div>
 
       <div class="col-12 d-flex flex-column">
         <p class="text-muted">Company Background</p>
-        <p class="fw-bold">{{ job.company.background }}</p>
+        <p class="fw-bold">{{ updatedCompany.background }}</p>
       </div>
     </div>
+  </div>
+  <div v-else>
+    <el-empty description="You are not setting your company yet">
+<!--      <el-button type="primary" >Add a Company</el-button>-->
+      <el-button class="btn btn-outline-primary"  data-bs-toggle="modal" data-bs-target="#companyEditModal" v-if="canEdit">Edit</el-button>
+    </el-empty>
   </div>
 
   <!--        编辑模态框-->
@@ -71,7 +77,7 @@
 
         <div class="d-flex mt-5 align-items-center">
           <div class="img-container border border-2 p-2" style="height: 100px; width: 100px">
-            <img :src="companyLogo" class="img-fluid" />
+            <img :src="newLogo? newLogo: 'data:image/png;base64,' + updatedCompany.logo" class="img-fluid" />
           </div>
           <div class="mb-3 ms-3">
             <label for="formFileSm" class="form-label">Upload Company Logo</label>
@@ -84,48 +90,48 @@
         <div class="row py-2 gx-5 gy-3 mt-3">
           <div class=" col-12 d-flex flex-column">
             <p class="text-muted">Company Name</p>
-            <input class="fw-bold form-control" v-model="jobs[0].company.name" >
+            <input class="fw-bold form-control" v-model="updatedCompany.name" >
           </div>
 
           <div class="col-3 d-flex flex-column">
             <p class="text-muted">Founded</p>
-            <input v-model="jobs[0].company.founded" class="form-control">
+            <input v-model="updatedCompany.founded" class="form-control">
           </div>
 
           <div class="col-3 d-flex flex-column">
             <p class="text-muted">Industry</p>
-            <input v-model="jobs[0].company.industry" class="form-control">
+            <input v-model="updatedCompany.industry" class="form-control">
           </div>
 
           <div class="col-3 d-flex flex-column">
             <p class="text-muted">Number of employee</p>
-            <input v-model="jobs[0].company.size" class="form-control">
+            <input v-model="updatedCompany.size" class="form-control">
           </div>
 
           <div class="col-3 d-flex flex-column">
             <p class="text-muted">Website</p>
-            <input v-model="jobs[0].company.url" class="form-control">
+            <input v-model="updatedCompany.website" class="form-control">
           </div>
 
           <div class="col-3 d-flex flex-column">
             <p class="text-muted">Location</p>
-            <input v-model="jobs[0].company.location" class="form-control">
+            <input v-model="updatedCompany.location" class="form-control">
           </div>
 
           <div class="col-3 d-flex flex-column">
             <p class="text-muted">Latitude</p>
-            <input v-model="jobs[0].company.latitude" type="number" class="form-control">
+            <input v-model="updatedCompany.latitude" type="number" class="form-control">
             <!--                  <p class="fw-bold">{{ jobs[0].company.latitude }}</p>-->
           </div>
 
           <div class="col-3 d-flex flex-column">
             <p class="text-muted">Longitude</p>
-            <input v-model="jobs[0].company.longitude" type="number" class="form-control">
+            <input v-model="updatedCompany.longitude" type="number" class="form-control">
           </div>
 
           <div class="col-12 d-flex flex-column">
             <p class="text-muted">Company Background</p>
-            <textarea v-model="jobs[0].company.background" style="min-height: 150px" class="form-control"/>
+            <textarea v-model="updatedCompany.background" style="min-height: 150px" class="form-control"/>
 
           </div>
         </div>
@@ -137,21 +143,21 @@
 
 <script setup lang="ts">
 
-import type { Job } from '@/types/Job'
-import { jobs } from '@/mock/jobs'
-import { ref } from 'vue'
+import type { Company } from '@/types/Job'
+import { reactive, ref } from 'vue'
 
-defineProps<{job : Job, canEdit: boolean}>()
+const props = defineProps<{company : Company, canEdit: boolean}>()
 
-const companyLogo = ref(jobs[0].company.logo)
+const updatedCompany = reactive(props.company)
+const newLogo = ref(updatedCompany.logo)
 
 function onFileChange(event) {
   const file = event.target.files[0];
   if (file) {
     // 创建一个URL指向这个文件对象
-    companyLogo.value = URL.createObjectURL(file);
+    newLogo.value = URL.createObjectURL(file);
   } else {
-    companyLogo.value = null;
+    newLogo.value = null;
   }
 }
 </script>

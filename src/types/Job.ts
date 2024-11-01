@@ -1,10 +1,10 @@
-interface Company {
+export interface Company {
   name: string
   location: string
   logo: string
   url: string
-  latitude: number
-  longitude: number
+  latitude: string
+  longitude: string
   size: number // 公司人数规模
   industry: string,
   founded: string,

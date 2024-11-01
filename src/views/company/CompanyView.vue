@@ -5,7 +5,7 @@
       <div class="card p-5 border-0">
 
         <!--    公司基本信息-->
-        <CompanyCard :job="jobs[0]" :can-edit="true"/>
+        <CompanyCard :company="company" :can-edit="true"/>
         <el-divider />
 
         <!--        状态信息-->
@@ -40,16 +40,22 @@
 </template>
 
 <script setup lang="ts">
-import { jobs } from '@/mock/jobs'
 import { useTransition } from '@vueuse/core'
 import CompanyCard from '@/components/company/CompanyCard.vue'
 import { ref, } from 'vue'
+import { useCompanyStore } from '@/stores/Company'
+import { storeToRefs } from 'pinia'
 
 const source = ref(0)
 const outputValue = useTransition(source, {
   duration: 1000,
 })
 source.value = 10
+
+const companyStore = useCompanyStore()
+const company = storeToRefs(companyStore.getCompany)
+
+
 
 
 

@@ -58,8 +58,10 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import { getUser } from '@/api/user'
+import { useCompanyStore } from '@/stores/Company'
 
 const user = ref(null)
+const companyStore = useCompanyStore()
 
 onMounted(async () => {
   // status.value = await getSeekingStatus()
@@ -70,6 +72,8 @@ async function fetchUser() {
   try {
     const response = await getUser()
     user.value = response.data.data
+
+    companyStore.$patch(user.value.company)
   } catch (error) {
     console.error('Failed to fetch user:', error)
   }
