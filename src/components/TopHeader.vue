@@ -96,10 +96,11 @@ function checkAuth() {
   }
 }
 
-function logout() {
+
+async function logout() {
   localStorage.clear();
   isLoggedIn.value = false;
-  router.push({path: '/'}); // Redirect to home page after logout
+  await router.push({path: '/'}); // Redirect to home page after logout
 }
 
 </script>

@@ -71,12 +71,7 @@
                   </div>
                   <div class="mb-3 ms-3">
                     <label for="formFileSm" class="form-label"
-                      >Upload
-                      {{
-                        selectedRole === accountType.JobSeeker
-                          ? 'Avatar Image'
-                          : 'Company Logo'
-                      }}</label
+                      >Upload Avatar Image</label
                     >
                     <input
                       class="form-control form-control-sm"
@@ -103,9 +98,7 @@
                             v-model="inputName"
                             required
                           />
-                          <label for="name">{{
-                              selectedRole === accountType.JobSeeker ? 'Name' : 'Company Name'
-                          }}</label>
+                          <label for="name">Name</label>
                         </div>
                       </div>
                     </div>

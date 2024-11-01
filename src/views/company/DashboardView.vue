@@ -72,7 +72,6 @@ async function fetchUser() {
   try {
     const response = await getUser()
     user.value = response.data.data
-
     companyStore.$patch(user.value.company)
   } catch (error) {
     console.error('Failed to fetch user:', error)
