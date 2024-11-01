@@ -1,9 +1,8 @@
 <template>
   <div id="seeker-profile" class="container">
-    <div class="row mt-3">
+    <div class="row ">
 
       <div class="card p-5 border-0">
-
         <!--    公司基本信息-->
         <CompanyCard :company="company" :can-edit="true"/>
         <el-divider />

@@ -72,12 +72,12 @@
       <div class="modal-content card p-4">
         <div class="d-flex justify-content-between">
           <p class="btn"  data-bs-toggle="modal" data-bs-target="#companyEditModal"><i class="bi bi-x-lg"></i></p>
-          <p class="btn btn-primary" >Save</p>
+          <p class="btn btn-primary" @click="handleSubmit" data-bs-toggle="modal" data-bs-target="#companyEditModal">Save</p>
         </div>
 
         <div class="d-flex mt-5 align-items-center">
           <div class="img-container border border-2 p-2" style="height: 100px; width: 100px">
-            <img :src="newLogo? newLogo: 'data:image/png;base64,' + updatedCompany.logo" class="img-fluid" />
+            <img :src="newLogoPreview? newLogoPreview: 'data:image/png;base64,' + updatedCompany.logo" class="img-fluid" />
           </div>
           <div class="mb-3 ms-3">
             <label for="formFileSm" class="form-label">Upload Company Logo</label>
@@ -145,21 +145,62 @@
 
 import type { Company } from '@/types/Job'
 import { reactive, ref } from 'vue'
+import { updateCompany } from '@/api/company'
+import { useRouter } from 'vue-router'
+import { useCompanyStore } from '@/stores/Company'
+import { ElNotification } from 'element-plus'
 
+const router = useRouter()
+
+const companyStore = useCompanyStore()
 const props = defineProps<{company : Company, canEdit: boolean}>()
 
 const updatedCompany = reactive(props.company)
-const newLogo = ref(updatedCompany.logo)
+const newLogoPreview = ref(updatedCompany.logo)
+const newLogo = ref(null)
 
 function onFileChange(event) {
   const file = event.target.files[0];
+  newLogo.value = file;
   if (file) {
     // 创建一个URL指向这个文件对象
-    newLogo.value = URL.createObjectURL(file);
+    newLogoPreview.value = URL.createObjectURL(file);
   } else {
-    newLogo.value = null;
+    newLogoPreview.value = null;
   }
 }
+
+async function handleSubmit() {
+  const formData = new FormData();
+  formData.append('_id', updatedCompany._id);
+  formData.append('name', updatedCompany.name);
+  formData.append('logo', newLogo.value);
+  formData.append('founded', updatedCompany.founded);
+  formData.append('industry', updatedCompany.industry);
+  formData.append('size', updatedCompany.size);
+  formData.append('website', updatedCompany.website);
+  formData.append('location', updatedCompany.location);
+  formData.append('latitude', updatedCompany.latitude);
+  formData.append('longitude', updatedCompany.longitude);
+  formData.append('background', updatedCompany.background);
+
+  try {
+    const response = await updateCompany(formData);
+    if (response.data.status === 200) {
+      companyStore.$patch(response.data.data)
+      ElNotification({
+        title: 'Success',
+        message: 'You Have Successfully Update Your Company!',
+        type: 'success',
+      })
+    } else {
+      console.log('error')
+    }
+  } catch (error) {
+    alert("An error occurred: " + error.message);
+  }
+}
+
 </script>
 
 <style scoped lang="css">
