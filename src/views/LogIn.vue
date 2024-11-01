@@ -93,7 +93,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch, h} from 'vue'
+import { ref, watch} from 'vue'
 import { login } from '@/api/user'
 import {useUserStore} from '@/stores/User'
 import {accountType} from '@/enums/accountType'

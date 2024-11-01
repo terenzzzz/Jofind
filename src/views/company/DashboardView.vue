@@ -3,6 +3,23 @@
     <!--    左侧导航栏-->
     <div class="col-2">
       <el-menu default-active="1" class="h-100">
+        <!--    基本个人信息-->
+        <div class="card p-3 rounded-3 border-0">
+          <div class="row">
+            <div class="col-4">
+              <img
+                :src="user? 'data:image/png;base64,' + user.avatar: ''"
+                class="img-fluid"
+              />
+            </div>
+            <div class="col-8 p-3">
+              <div class="d-flex flex-column">
+                <h3>{{ user? user.name : '' }}</h3>
+                <p>{{ user? user.email:'' }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
         <router-link to="/dashboard/company">
           <el-menu-item index="1">
             <i class="bi bi-info-square me-2 fs-5"></i>
@@ -39,5 +56,25 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted, ref } from 'vue'
+import { getUser } from '@/api/user'
+
+const user = ref(null)
+
+onMounted(async () => {
+  // status.value = await getSeekingStatus()
+  await fetchUser()
+})
+
+async function fetchUser() {
+  try {
+    const response = await getUser()
+    user.value = response.data.data
+  } catch (error) {
+    console.error('Failed to fetch user:', error)
+  }
+}
+
+
 
 </script>

@@ -3,10 +3,38 @@
 <!--    左侧导航栏-->
     <div class="col-2">
       <el-menu default-active="1" class="h-100">
+        <div class="card p-3 rounded-3 border-0">
+          <div class="row">
+            <div class="col-4">
+              <img
+                :src="user? 'data:image/png;base64,' + user.avatar: ''"
+                class="img-fluid"
+              />
+            </div>
+            <div class="col-8">
+              <div class="d-flex flex-column">
+                <h3 class="m-0 p-0">{{ user? user.name : '' }}</h3>
+                <p>{{ user? user.email:'' }}</p>
+                <el-select
+                  v-model="selectedStatus"
+                  placeholder="Status"
+                  size="default"
+                >
+                  <el-option
+                    v-for="item in seekingStatus"
+                    :key="item.value"
+                    :label="item.status"
+                    :value="item._id"
+                  />
+                </el-select>
+              </div>
+            </div>
+          </div>
+        </div>
         <router-link to="/profile">
           <el-menu-item index="1">
             <i class="bi bi-info-square me-2 fs-5"></i>
-            <span class="fs-5">Overall</span>
+            <span class="fs-5">Apply Records</span>
           </el-menu-item>
         </router-link>
         <router-link to="/profile/resume">
@@ -33,5 +61,35 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted, ref } from 'vue'
+import { getUser } from '@/api/user'
+import { getSeekingStatus } from '@/api/seekingStatus'
 
+const seekingStatus = ref(null)
+const selectedStatus = ref(null)
+const user = ref(null)
+
+onMounted(async () => {
+  // status.value = await getSeekingStatus()
+  await fetchUser()
+  await fetchSeekingStatus()
+})
+
+async function fetchUser() {
+  try {
+    const response = await getUser()
+    user.value = response.data.data
+  } catch (error) {
+    console.error('Failed to fetch user:', error)
+  }
+}
+
+async function fetchSeekingStatus() {
+  try {
+    const response = await getSeekingStatus()
+    seekingStatus.value = response.data.data
+  } catch (error) {
+    console.error('Failed to fetch user:', error)
+  }
+}
 </script>

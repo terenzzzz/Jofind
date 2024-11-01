@@ -1,12 +1,12 @@
 <template>
   <div id="seeker-profile" class="container">
     <div class="row mt-3">
+
       <div class="card p-5 border-0">
+
         <!--    公司基本信息-->
         <CompanyCard :job="jobs[0]" :can-edit="true"/>
         <el-divider />
-
-
 
         <!--        状态信息-->
         <div class="row">
@@ -41,9 +41,9 @@
 
 <script setup lang="ts">
 import { jobs } from '@/mock/jobs'
-import { ref } from 'vue'
 import { useTransition } from '@vueuse/core'
 import CompanyCard from '@/components/company/CompanyCard.vue'
+import { ref, } from 'vue'
 
 const source = ref(0)
 const outputValue = useTransition(source, {

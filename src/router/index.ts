@@ -4,13 +4,13 @@ import LogIn from '@/views/LogIn.vue'
 import SignUp from '@/views/SignUp.vue'
 import ResumeView from '@/views/profile/ResumeView.vue'
 import Profile from '@/views/profile/ProfileView.vue'
-import OverallView from '@/views/profile/OverallView.vue'
 import MessageView from '@/views/profile/MessageView.vue'
 import JobView from '@/views/JobView.vue'
 import DashboardView from '@/views/company/DashboardView.vue'
 import CompanyView from '@/views/company/CompanyView.vue'
 import PostedJobView from '@/views/company/PostedJobView.vue'
 import ApplicationView from '@/views/company/ApplicationView.vue'
+import ApplyRecordView from '@/views/profile/ApplyRecordView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,12 +39,12 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: Profile,
-      redirect: '/profile/overall',
+      redirect: '/profile/applyrecord',
       children: [
         {
-          path: 'overall',
-          name: 'overall',
-          component: OverallView,
+          path: 'applyrecord',
+          name: 'applyrecord',
+          component: ApplyRecordView,
         },
         {
           path: 'resume',
