@@ -13,3 +13,10 @@ export const getCompanyJobsByCompanyId= companyId => request({
   method: 'get',
   params: {company: companyId}
 });
+
+export const deleteJob= (jobId) => request({
+  url: '/app/deleteJob',
+  method: 'get',
+  params: {job: jobId}
+});
+

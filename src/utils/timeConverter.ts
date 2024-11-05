@@ -70,6 +70,16 @@ export const convertISOToDate = (isoString: string): string => {
   return `${year}.${month}.${day}`;
 }
 
+
+// 格式化日期为 'YYYY-MM-DD
+export function formatDate(date: string | Date): string {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = (d.getMonth() + 1).toString().padStart(2, '0');  // 月份从 0 开始
+  const day = d.getDate().toString().padStart(2, '0');  // 日期
+  return `${year}-${month}-${day}`;
+}
+
 export const convertISOToDateTime = (isoString: string): string => {
   // 将 ISO 8601 格式的字符串转换为 Date 对象
   const date = new Date(isoString);

@@ -9,7 +9,7 @@
         Post a new job
       </button>
 
-      <!--        编辑模态框-->
+      <!--        添加模态框-->
       <div class="modal fade" id="postJobModal" tabindex="-1">
         <div class="modal-dialog modal-xl modal-dialog-centered">
           <form class="modal-content card p-4" @submit.prevent="handleSubmit">
@@ -21,7 +21,7 @@
               >
                 <i class="bi bi-x-lg"></i>
               </p>
-              <button class="btn btn-primary" type="submit">Save</button>
+              <button class="btn btn-primary" type="submit">Add</button>
             </div>
             <h5 class="text-center mt-5">Job Position Information</h5>
             <div class="row py-2 gx-5 gy-3 mt-3">
@@ -70,7 +70,7 @@
               <div class="col-3 d-flex flex-column">
                 <p class="text-muted">Education Needed</p>
                 <input
-                  v-model="job.education"
+                  v-model="job.degree"
                   class="form-control"
                   placeholder="Master"
                   required
@@ -193,8 +193,8 @@
     </div>
 
     <div class="row g-4 d-flex flex-wrap mt-3">
-      <div class="col-auto" v-for="job in jobsList" :key="job._id">
-        <JobCard :job="job" :showAction="false" class="h-100" :is-view-only="false"></JobCard>
+      <div class="col-4" v-for="job in jobsList" :key="job._id">
+        <JobCard :job="job" :showAction="false" class="h-100" :is-view-only="false" @refresh="handleRefresh"></JobCard>
       </div>
     </div>
   </div>
@@ -206,28 +206,14 @@ import CompanyCard from '@/components/company/CompanyCard.vue'
 import { onMounted, reactive, ref } from 'vue'
 import { getCompanyJobsByCompanyId, updateJob } from '@/api/job'
 import { ElNotification } from 'element-plus'
+import { Job } from '@/types/Job'
 
 
-
-const job = reactive({
-  website: '',
-  department: '',
-  experience: '',
-  education: '',
-  location: '',
-  latitude: '',
-  longitude: '',
-  role: '',
-  summary: '',
-  description: '',
-  requirements: '',
-  salaryFrom: null,
-  salaryTo: null,
-  advFrom: new Date().toISOString().split('T')[0],
-  advTo: new Date().toISOString().split('T')[0],
-})
+const job = reactive({} as Job)
 
 const jobsList = ref([]);
+const user = JSON.parse(localStorage.getItem('user'));
+
 
 onMounted(async ()=>{
   await fetchJobs()
@@ -235,15 +221,16 @@ onMounted(async ()=>{
 
 async function fetchJobs() {
   try {
-    const user = localStorage.getItem('user');
-    const response = await getCompanyJobsByCompanyId(JSON.parse(user).company);
+    const response = await getCompanyJobsByCompanyId(user.company);
     jobsList.value = response.data.data;
   } catch (error) {
     console.error('Failed to fetch jobs:', error);
   }
 }
 
-
+const handleRefresh = async () => {
+  await fetchJobs()
+};
 
 async function handleSubmit() {
   const formData = new FormData()
@@ -252,11 +239,12 @@ async function handleSubmit() {
   for (const key in job) {
     formData.append(key, job[key])
   }
-  formData.append('company', company._id.value)
+  formData.append('company', user.company)
 
   try {
     const response = await updateJob(formData)
     if (response.data.status === 200) {
+      await fetchJobs()
       ElNotification({
         title: 'Success',
         message: 'You Have Successfully Update the Job!',

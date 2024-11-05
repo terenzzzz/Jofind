@@ -1,8 +1,8 @@
 <template>
   <div class="row my-5" style="min-height: 80vh">
     <!--    左侧导航栏-->
-    <div class="col-2">
-      <el-menu :default-active="activeIndex" class="h-100">
+    <div class="col-2 border-end">
+      <el-menu :default-active="activeIndex" class="h-100 border-0">
         <!--    基本个人信息-->
         <div class="card p-3 rounded-3 border-0">
           <div class="row">
@@ -28,7 +28,7 @@
         </router-link>
         <router-link to="/dashboard/postedjob">
           <el-menu-item index="2">
-            <i class="bi bi-file-earmark-text me-2 fs-5"></i>
+            <i class="bi bi-files me-2 fs-5"></i>
             <span class="fs-5">Posted Jobs</span>
           </el-menu-item>
         </router-link>
