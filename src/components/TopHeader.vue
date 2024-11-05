@@ -96,11 +96,15 @@ function checkAuth() {
   }
 }
 
+import {useCompanyStore } from '@/stores/Company'
 
 async function logout() {
   localStorage.clear();
+  const companyStore = useCompanyStore();
+  companyStore.$reset();
   isLoggedIn.value = false;
   await router.push({path: '/'}); // Redirect to home page after logout
+
 }
 
 </script>

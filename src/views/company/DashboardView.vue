@@ -2,7 +2,7 @@
   <div class="row my-5" style="min-height: 80vh">
     <!--    左侧导航栏-->
     <div class="col-2">
-      <el-menu default-active="1" class="h-100">
+      <el-menu :default-active="activeIndex" class="h-100">
         <!--    基本个人信息-->
         <div class="card p-3 rounded-3 border-0">
           <div class="row">
@@ -56,12 +56,27 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed  } from 'vue'
 import { getUser } from '@/api/user'
-import { useCompanyStore } from '@/stores/Company'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+// 定义一个映射关系，将路由路径与菜单的 index 关联起来
+const pathToIndexMap = {
+  '/dashboard/dashboard': '1',
+  '/dashboard/postedjob': '2',
+  '/dashboard/application': '3',
+  '/dashboard/message': '4'
+}
+
+const activeIndex = computed(() => {
+  return pathToIndexMap[route.path] || '1'  // 默认选中 '1'（例如 Home）
+})
 
 const user = ref(null)
-const companyStore = useCompanyStore()
+
+// const companyStore = useCompanyStore()
 
 onMounted(async () => {
   // status.value = await getSeekingStatus()
@@ -72,7 +87,7 @@ async function fetchUser() {
   try {
     const response = await getUser()
     user.value = response.data.data
-    companyStore.$patch(user.value.company)
+    // companyStore.$patch(user.value.company)
   } catch (error) {
     console.error('Failed to fetch user:', error)
   }

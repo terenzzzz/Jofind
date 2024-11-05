@@ -1,8 +1,9 @@
 export interface Company {
+  _id: string
   name: string
   location: string
   logo: string
-  url: string
+  website: string
   latitude: string
   longitude: string
   size: number // 公司人数规模
@@ -17,21 +18,22 @@ interface Tag {
 }
 
 export interface Job {
-  id: number
+  _id: string
   company: Company
-  tags: Tag[]
+  website: string
   department: string
-  experience: string
-  education: string
+  role: string
+  degree: string
+  experience: number
   location: string
   latitude: number
   longitude: number
-  role: string
-  conclusion: string // 总结这个职位
-  description: string // 详细描述
-  requirements: string
   salaryFrom: string
-  salaryTo: string
-  startDate: Date
-  endDate: Date
+  salaryTo: Date
+  advFrom: Date
+  advTo: string
+  description: string
+  requirements: string
+  summary: string
+
 }

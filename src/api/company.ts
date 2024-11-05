@@ -8,3 +8,10 @@ export const updateCompany = data => request({
   method: 'post',
   data
 });
+
+
+export const getCompanyById= data => request({
+  url: '/app/getCompanyById',
+  method: 'get',
+  data
+});

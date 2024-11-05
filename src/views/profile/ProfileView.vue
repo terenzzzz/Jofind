@@ -2,7 +2,7 @@
   <div class="row my-5">
 <!--    左侧导航栏-->
     <div class="col-2">
-      <el-menu default-active="1" class="h-100">
+      <el-menu :default-active="activeIndex" class="h-100">
         <div class="card p-3 rounded-3 border-0">
           <div class="row">
             <div class="col-4">
@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <router-link to="/profile">
+        <router-link to="/profile/applyrecord">
           <el-menu-item index="1">
             <i class="bi bi-info-square me-2 fs-5"></i>
             <span class="fs-5">Apply Records</span>
@@ -61,13 +61,27 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { getUser } from '@/api/user'
 import { getSeekingStatus } from '@/api/seekingStatus'
-
+import { useRoute } from 'vue-router'
 const seekingStatus = ref(null)
 const selectedStatus = ref(null)
 const user = ref(null)
+
+
+const route = useRoute()
+
+// 定义一个映射关系，将路由路径与菜单的 index 关联起来
+const pathToIndexMap = {
+  '/profile/applyrecord': '1',
+  '/profile/resume': '2',
+  '/profile/chat': '3',
+}
+
+const activeIndex = computed(() => {
+  return pathToIndexMap[route.path] || '1'  // 默认选中 '1'（例如 Home）
+})
 
 onMounted(async () => {
   // status.value = await getSeekingStatus()

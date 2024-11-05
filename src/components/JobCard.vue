@@ -3,7 +3,7 @@
     <!--    公司信息-->
     <div class="d-flex flex-row justify-content-between align-items-center">
       <div class="img-container border border-2 p-2" style="height: 80px; width: 80px">
-        <img :src="job.company.logo" class="img-fluid" />
+        <img :src="job? 'data:image/png;base64,' + job.company.logo: ''" class="img-fluid" />
       </div>
 
       <div class="company d-flex flex-column justify-content-center">
@@ -17,7 +17,7 @@
 
     <!--    岗位描述-->
     <p class="text-muted mb-5">
-      {{ job.conclusion }}
+      {{ job.summary }}
     </p>
 
     <!--    薪水-->
@@ -29,17 +29,33 @@
       </p>
 
       <!-- Button trigger modal -->
-      <button
-        type="button"
-        class="btn btn-outline-primary btn-sm"
-        data-bs-toggle="modal"
-        :data-bs-target="'#'+job.id"
-      >
-        View
-      </button>
+<!--      <button-->
+<!--        type="button"-->
+<!--        class="btn btn-outline-primary btn-sm"-->
+<!--        data-bs-toggle="modal"-->
+<!--        :data-bs-target="'#'+job.id"-->
+<!--      >-->
+<!--        View-->
+<!--      </button>-->
+
+      <div class="btn-group dropup">
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+          :data-bs-target="'#'+job._id">
+          View
+        </button>
+        <button type="button" class="btn dropdown-toggle dropdown-toggle-split btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false" v-if="!isViewOnly">
+          <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" v-if="!isViewOnly">
+          <!-- Dropdown menu links -->
+          <li><a class="dropdown-item fw-bold" href="#">Edit</a></li>
+          <li><a class="dropdown-item fw-bold text-danger" href="#">Delete</a></li>
+        </ul>
+      </div>
+
     </div>
 
-    <div class="modal fade" :id="job.id" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal fade" :id="job._id" tabindex="-1" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <div class="modal-content card p-5 overflow-auto">
           <div class="row">
@@ -50,9 +66,9 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <h3>{{ job.role }}</h3>
-                    <a class="text-primary">{{ job.company.url }}</a>
+                    <a class="text-primary">{{ job.company.website }}</a>
                   </div>
-                  <div class="ms-5">
+                  <div class="ms-5" v-if="showAction">
                     <div class="btn btn-light">Report Job</div>
                     <div class="btn btn-primary">Apply Now</div>
                   </div>
@@ -78,7 +94,7 @@
 
                   <div class="col-auto d-flex flex-column">
                     <p class="text-muted">Education</p>
-                    <p class="fw-bold">{{ job.education }}</p>
+                    <p class="fw-bold">{{ job.degree }}</p>
                   </div>
 
                   <div class="col-auto d-flex flex-column">
@@ -94,27 +110,27 @@
                   </div>
                 </div>
 
-                <!--    标签列表-->
-                <div class="row d-flex flex-row g-1 mt-3">
-                  <div class="col-auto" v-for="tag in job.tags" :key="tag._id">
-                    <button
-                      class="rounded-3 btn btn-secondary btn-sm my-1"
-                      disabled
-                    >
-                      {{ tag.name }}
-                    </button>
-                  </div>
-                </div>
+<!--                &lt;!&ndash;    标签列表&ndash;&gt;-->
+<!--                <div class="row d-flex flex-row g-1 mt-3">-->
+<!--                  <div class="col-auto" v-for="tag in job.tags" :key="tag._id">-->
+<!--                    <button-->
+<!--                      class="rounded-3 btn btn-secondary btn-sm my-1"-->
+<!--                      disabled-->
+<!--                    >-->
+<!--                      {{ tag.name }}-->
+<!--                    </button>-->
+<!--                  </div>-->
+<!--                </div>-->
 
                 <!--              招聘时间-->
                 <div
                   class="d-flex justify-content-between align-items-center mt-4"
                 >
                   <p class="text-muted">
-                    Advertised since {{ convertISOToDate(job.startDate) }}
+                    Advertised since {{ convertISOToDate(job.advFrom) }}
                   </p>
                   <p class="text-muted">
-                    Closed on {{ convertISOToDate(job.endDate) }}
+                    Closed on {{ convertISOToDate(job.advTo) }}
                   </p>
                 </div>
 
@@ -146,7 +162,7 @@
             <!--            公司信息-->
             <div class="col-4">
               <div class="d-flex justify-content-center">
-                <img :src="job.company.logo" class="img-fluid" />
+                <img :src="job? 'data:image/png;base64,' + job.company.logo: ''" class="img-fluid" />
               </div>
               <el-divider />
 
@@ -186,7 +202,7 @@
               <el-divider />
 
               <div class="card overflow-hidden" v-if="isShowMap">
-                <div :id="'map'+job.id" style="height: 200px"></div>
+                <div :id="'map'+job._id" style="height: 200px"></div>
               </div>
             </div>
           </div>
@@ -199,7 +215,6 @@
 <script setup lang="ts">
 import { Job } from '@/types/Job'
 import { convertISOToDate } from '@/utils/timeConverter'
-
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { ref, nextTick } from 'vue'
@@ -211,8 +226,7 @@ function toggleMap() {
   isShowMap.value = !isShowMap.value // 切换显示状态
   nextTick(() => {
     if (isShowMap.value) {
-      console.log(props.job.id)
-      const map = L.map('map'+props.job.id).setView([props.job.latitude.toString(), props.job.longitude.toString()], 9)
+      const map = L.map('map'+props.job._id).setView([props.job.latitude.toString(), props.job.longitude.toString()], 9)
       L.tileLayer(
         'https://webrd04.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}',
         {
@@ -227,7 +241,7 @@ function toggleMap() {
 }
 
 // 使用 defineProps 来接收 job prop
-const props = defineProps<{ job: Job }>()
+const props = defineProps<{ job: Job, isViewOnly: boolean, showAction: boolean }>()
 
 
 

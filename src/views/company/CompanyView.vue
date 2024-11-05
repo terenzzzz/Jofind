@@ -1,5 +1,5 @@
 <template>
-  <div id="seeker-profile" class="container">
+  <div id="seeker-profile" class="">
     <div class="row ">
 
       <div class="card p-5 border-0">
@@ -41,9 +41,9 @@
 <script setup lang="ts">
 import { useTransition } from '@vueuse/core'
 import CompanyCard from '@/components/company/CompanyCard.vue'
-import { ref, } from 'vue'
-import { useCompanyStore } from '@/stores/Company'
-import { storeToRefs } from 'pinia'
+import { onMounted, onUpdated, ref } from 'vue'
+import { getCompanyById } from '@/api/company'
+
 
 const source = ref(0)
 const outputValue = useTransition(source, {
@@ -51,8 +51,28 @@ const outputValue = useTransition(source, {
 })
 source.value = 10
 
-const companyStore = useCompanyStore()
-const company = storeToRefs(companyStore.getCompany)
+const company = ref({})
+
+onMounted(async () => {
+  // status.value = await getSeekingStatus()
+  await fetchCompany()
+})
+
+// onUpdated(async () => {
+//   // status.value = await getSeekingStatus()
+//   await fetchCompany()
+// })
+
+async function fetchCompany() {
+  try {
+    const response = await getCompanyById()
+    company.value = response.data.data
+
+  } catch (error) {
+    console.error('Failed to fetch user:', error)
+  }
+}
+
 
 
 

@@ -1,18 +1,18 @@
 
 
 <template>
-  <div class="card p-4" v-if="updatedCompany._id">
+  <div class="card p-4" v-if="company._id">
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex">
         <div
           class="img-container border border-2 p-2"
           style="height: 80px; width: 80px"
         >
-          <img :src="updatedCompany.logo? 'data:image/png;base64,' + updatedCompany.logo: ''" class="img-fluid" />
+          <img :src="company.logo? 'data:image/png;base64,' + company.logo: ''" class="img-fluid" />
         </div>
         <div class="company d-flex flex-column justify-content-center ms-3">
-          <h5 class="fw-bold">{{ updatedCompany.name }}</h5>
-          <p class="text-muted">{{ updatedCompany.location }}</p>
+          <h5 class="fw-bold">{{ company.name }}</h5>
+          <p class="text-muted">{{ company.location }}</p>
         </div>
       </div >
       <p class="btn btn-outline-primary"  data-bs-toggle="modal" data-bs-target="#companyEditModal" v-if="canEdit">Edit</p>
@@ -20,42 +20,42 @@
     <div class="row py-2 gx-5 gy-3 mt-3">
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Founded</p>
-        <p class="fw-bold">{{ updatedCompany.founded }}</p>
+        <p class="fw-bold">{{ company.founded }}</p>
       </div>
 
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Industry</p>
-        <p class="fw-bold">{{ updatedCompany.industry }}</p>
+        <p class="fw-bold">{{ company.industry }}</p>
       </div>
 
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Number of employee</p>
-        <p class="fw-bold">{{ updatedCompany.size }}</p>
+        <p class="fw-bold">{{ company.size }}</p>
       </div>
 
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Website</p>
-        <p class="fw-bold">{{ updatedCompany.website }}</p>
+        <p class="fw-bold">{{ company.website }}</p>
       </div>
 
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Location</p>
-        <p class="fw-bold">{{ updatedCompany.location }}</p>
+        <p class="fw-bold">{{ company.location }}</p>
       </div>
 
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Latitude</p>
-        <p class="fw-bold">{{ updatedCompany.latitude }}</p>
+        <p class="fw-bold">{{ company.latitude }}</p>
       </div>
 
       <div class="col-3 d-flex flex-column">
         <p class="text-muted">Longitude</p>
-        <p class="fw-bold">{{ updatedCompany.longitude }}</p>
+        <p class="fw-bold">{{ company.longitude }}</p>
       </div>
 
       <div class="col-12 d-flex flex-column">
         <p class="text-muted">Company Background</p>
-        <p class="fw-bold">{{ updatedCompany.background }}</p>
+        <p class="fw-bold">{{ company.background }}</p>
       </div>
     </div>
   </div>
@@ -73,16 +73,16 @@
         <form  @submit.prevent="handleSubmit">
           <div class="d-flex justify-content-between" >
             <p class="btn"  data-bs-toggle="modal" data-bs-target="#companyEditModal"><i class="bi bi-x-lg"></i></p>
-            <button class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#companyEditModal" >Save</button>
+            <button class="btn btn-primary" type="submit" >Save</button>
           </div>
 
           <div class="d-flex mt-5 align-items-center">
             <div class="img-container border border-2 p-2" style="height: 100px; width: 100px">
-              <img :src="newLogoPreview? newLogoPreview: 'data:image/png;base64,' + updatedCompany.logo" class="img-fluid" />
+              <img :src="newLogoPreview? newLogoPreview: 'data:image/png;base64,' + company.logo" class="img-fluid" />
             </div>
             <div class="mb-3 ms-3">
               <label for="formFileSm" class="form-label">Upload Company Logo</label>
-              <input class="form-control form-control-sm" id="formFileSm" type="file" @change="onFileChange" required>
+              <input class="form-control form-control-sm" id="formFileSm" type="file" @change="onFileChange">
             </div>
           </div>
 
@@ -119,13 +119,12 @@
 
             <div class="col-3 d-flex flex-column">
               <p class="text-muted">Latitude</p>
-              <input v-model="updatedCompany.latitude" type="number" class="form-control" required>
-              <!--                  <p class="fw-bold">{{ jobs[0].company.latitude }}</p>-->
+              <input v-model="updatedCompany.latitude" class="form-control" required>
             </div>
 
             <div class="col-3 d-flex flex-column">
               <p class="text-muted">Longitude</p>
-              <input v-model="updatedCompany.longitude" type="number" class="form-control" required>
+              <input v-model="updatedCompany.longitude" class="form-control" required>
             </div>
 
             <div class="col-12 d-flex flex-column">
@@ -145,20 +144,32 @@
 <script setup lang="ts">
 
 import type { Company } from '@/types/Job'
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { updateCompany } from '@/api/company'
-import { useRouter } from 'vue-router'
-import { useCompanyStore } from '@/stores/Company'
 import { ElNotification } from 'element-plus'
 
-const router = useRouter()
 
-const companyStore = useCompanyStore()
 const props = defineProps<{company : Company, canEdit: boolean}>()
 
-const updatedCompany = reactive(props.company)
-const newLogoPreview = ref(updatedCompany.logo)
+
+// 创建一个响应式副本
+let updatedCompany = reactive({} as Company);
+const newLogoPreview = ref(null)
 const newLogo = ref(null)
+
+// 使用 watch 监听 company 的变化
+watch(
+  () => props.company,
+  (propCompany) => {
+    if (propCompany) {
+      updatedCompany = {...propCompany}
+    }
+  }
+)
+
+
+
+
 
 function onFileChange(event) {
   const file = event.target.files[0];
@@ -188,14 +199,18 @@ async function handleSubmit() {
   try {
     const response = await updateCompany(formData);
     if (response.data.status === 200) {
-      companyStore.$patch(response.data.data)
       ElNotification({
         title: 'Success',
         message: 'You Have Successfully Update Your Company!',
         type: 'success',
       })
+      closeModal()
     } else {
-      console.log('error')
+      ElNotification({
+        title: 'Error',
+        message: 'Something went wrong!',
+        type: 'error',
+      })
     }
   } catch (error) {
     alert("An error occurred: " + error.message);
@@ -204,6 +219,17 @@ async function handleSubmit() {
       message: 'Something went wrong!',
       type: 'error',
     })
+  }
+}
+
+function closeModal() {
+  const modalElement = document.getElementById('companyEditModal')
+  const backdropElement = document.querySelector('.modal-backdrop')
+  modalElement.classList.remove('show') // 强制移除 show 类
+  // 手动移除 backdrop 元素
+  if (backdropElement) {
+    backdropElement.remove()
+    document.body.classList.remove('modal-open')
   }
 }
 
