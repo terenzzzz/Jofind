@@ -1,5 +1,5 @@
 <template>
-  <div class="row my-5">
+  <div class="row my-5" style="min-height: 80vh">
 <!--    左侧导航栏-->
     <div class="col-2">
       <el-menu :default-active="activeIndex" class="h-100">

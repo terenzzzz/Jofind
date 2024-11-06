@@ -12,10 +12,6 @@ export interface Company {
   background: string
 }
 
-interface Tag {
-  _id: number
-  name: string
-}
 
 export interface Job {
   _id: string
@@ -26,12 +22,12 @@ export interface Job {
   degree: string
   experience: number
   location: string
-  latitude: number
-  longitude: number
-  salaryFrom: string
-  salaryTo: Date
+  latitude: string
+  longitude: string
+  salaryFrom: number
+  salaryTo: number
   advFrom: Date
-  advTo: string
+  advTo: Date
   description: string
   requirements: string
   summary: string
