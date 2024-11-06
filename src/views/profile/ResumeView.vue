@@ -326,7 +326,7 @@
             <h5>Project Experience</h5>
             <p class="text-primary" @click="handleProjectExperience" style="cursor: pointer">Add</p>
           </div>
-          <div class="card my-2 p-3" v-for="(project,index) in workExperiences" :key="index">
+          <div class="card my-2 p-3" v-for="(project,index) in projectExperiences" :key="index">
             <div class="row py-2 gx-5 gy-3 mt-3" >
               <h6 class="text-muted text-center">Project {{index + 1}}</h6>
               <div class="col-3 d-flex flex-column">
@@ -532,6 +532,8 @@ import LanguageCard from '@/components/resume/LanguageCard.vue'
 import { ref } from 'vue'
 import { ElNotification } from 'element-plus'
 import type { DesiredJob } from '@/types/DesiredJob'
+import type { ProjectExperience } from '@/types/ProjectExperience'
+import type { EducationExperience } from '@/types/EducationExperience'
 
 const resume = ref({})
 
@@ -568,7 +570,7 @@ const emptyWorkExperience = {
   endDate: Date,
   isIntern: false,
 }
-const workExperiences = ref([emptyWorkExperience]);
+const workExperiences = ref<WorkExperience[]>([emptyWorkExperience]);
 function handleWorkExperience(){
   if (workExperiences.value.length<3){
     workExperiences.value.push(emptyWorkExperience)
@@ -591,7 +593,7 @@ const emptyProjectExperience = {
   startDate: Date,
   endDate: Date,
 }
-const projectExperiences = ref([emptyProjectExperience]);
+const projectExperiences = ref<ProjectExperience[]>([emptyProjectExperience]);
 function handleProjectExperience(){
   if (projectExperiences.value.length<3){
     projectExperiences.value.push(emptyProjectExperience)
@@ -613,7 +615,7 @@ const emptyEducation = {
   startDate: Date,
   endDate: Date,
 }
-const educationExperiences = ref([emptyEducation]);
+const educationExperiences = ref<EducationExperience[]>([emptyEducation]);
 function handleEducationAdd(){
   if (educationExperiences.value.length<2){
     educationExperiences.value.push(emptyEducation)
@@ -633,7 +635,7 @@ const emptyLanguage = {
   certificate: '',
   mark: '',
 }
-const languageExperience = ref([emptyLanguage]);
+const languageExperience = ref<LanguageExperience[]>([emptyLanguage]);
 
 function handleLanguageAdd(){
   if (languageExperience.value.length<3){
