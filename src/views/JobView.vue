@@ -1,6 +1,6 @@
 <template>
-  <div id="job-view" class="my-3" >
-    <div class="row m-0 p-0">
+  <div id="job-view" class="my-3">
+    <div class="row m-0 p-0" style="min-height: 80vh">
       <!--    搜索栏-->
       <div class="col-3 ">
         <div class="card p-3 shadow h-100">
@@ -44,8 +44,8 @@
         <CarouselCard></CarouselCard>
 
         <div class="row g-4 d-flex flex-wrap">
-          <div class="col-4 flex-fill" v-for="(job,index) in jobs" :key="index">
-            <JobCard  :job="job" class="h-100"></JobCard>
+          <div class="col-4" v-for="job in jobsList" :key="job._id">
+            <JobCard :job="job" class="h-100" :is-view-only="true" :show-action="true"></JobCard>
           </div>
         </div>
       </div>
@@ -56,11 +56,30 @@
 
 <script setup lang="ts">
 import { pcaTextArr } from 'element-china-area-data'
-import {ref} from 'vue'
+import { onMounted, ref } from 'vue'
 import JobCard from '@/components/JobCard.vue'
 
 import {jobs} from '@/mock/jobs'
 import CarouselCard from '@/components/CarouselCard.vue'
+import { getJobs } from '@/api/job'
+
+const jobsList = ref([]);
+
+onMounted(async () => {
+  // status.value = await getSeekingStatus()
+  await fetchJobs()
+})
+
+async function fetchJobs() {
+  try {
+    const response = await getJobs()
+    jobsList.value = response.data.data
+  } catch (error) {
+    console.error('Failed to fetch user:', error)
+  }
+}
+
+
 
 const selectedRegion = ref()
 

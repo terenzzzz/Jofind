@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="h-100">
     <div class="d-flex justify-content-end">
       <button
         class="btn btn-outline-primary"
@@ -192,11 +192,15 @@
       </div>
     </div>
 
-    <div class="row g-4 d-flex flex-wrap mt-3">
+    <div class="row g-4 d-flex flex-wrap mt-3" v-if="jobsList.length > 0">
       <div class="col-4" v-for="job in jobsList" :key="job._id">
         <JobCard :job="job" :showAction="false" class="h-100" :is-view-only="false" @refresh="handleRefresh"></JobCard>
       </div>
     </div>
+    <div class="d-flex justify-content-center h-100" v-else>
+      <el-empty description="You have not posted any job." ></el-empty>
+    </div>
+
   </div>
 </template>
 
@@ -204,7 +208,7 @@
 import JobCard from '@/components/JobCard.vue'
 import CompanyCard from '@/components/company/CompanyCard.vue'
 import { onMounted, reactive, ref } from 'vue'
-import { getCompanyJobsByCompanyId, updateJob } from '@/api/job'
+import { getJobsByCompanyId, updateJob } from '@/api/job'
 import { ElNotification } from 'element-plus'
 import { Job } from '@/types/Job'
 
@@ -221,7 +225,7 @@ onMounted(async ()=>{
 
 async function fetchJobs() {
   try {
-    const response = await getCompanyJobsByCompanyId(user.company);
+    const response = await getJobsByCompanyId(user.company);
     jobsList.value = response.data.data;
   } catch (error) {
     console.error('Failed to fetch jobs:', error);

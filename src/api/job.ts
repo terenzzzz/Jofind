@@ -8,10 +8,16 @@ export const updateJob = data => request({
   data
 });
 
-export const getCompanyJobsByCompanyId= companyId => request({
-  url: '/app/getCompanyJobsByCompanyId',
+export const getJobsByCompanyId= companyId => request({
+  url: '/app/getJobsByCompanyId',
   method: 'get',
   params: {company: companyId}
+});
+
+export const getJobs= data => request({
+  url: '/app/getJobs',
+  method: 'get',
+  data
 });
 
 export const deleteJob= (jobId) => request({

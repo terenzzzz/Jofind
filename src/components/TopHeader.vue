@@ -32,7 +32,7 @@
           </li>
 
           <li class="nav-item" v-if="isLoggedIn">
-            <p @click.prevent="logout">Logout</p>
+            <p style="cursor: pointer" @click.prevent="logout">Logout</p>
           </li>
 
 
