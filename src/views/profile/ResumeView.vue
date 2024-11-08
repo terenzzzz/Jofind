@@ -97,7 +97,7 @@
   <!--        添加模态框-->
   <div class="modal fade" id="updateResume" tabindex="-1">
     <div class="modal-dialog modal-xl modal-dialog-centered">
-      <form class="modal-content card p-5" @submit.prevent="handleSubmit">
+      <form class="modal-content card p-5" @submit.prevent="handleUpdate">
         <div class="d-flex justify-content-between">
           <p
             class="btn"
@@ -189,7 +189,7 @@
             <h5>Desired Position</h5>
             <p class="text-primary" @click="handleDesiredJobAdd" style="cursor: pointer">Add</p>
           </div>
-          <div class="row py-2 gx-5 gy-3 mt-3" v-for="(job,index) in desiredJobs" :key="index">
+          <div class="row py-2 gx-5 gy-3 mt-3" v-for="(job,index) in resume.desiredJobs" :key="index">
             <div class="col-3 d-flex flex-column">
               <p class="text-muted">Job Role</p>
               <input
@@ -239,7 +239,7 @@
             <h5>Work/Internship Experience</h5>
             <p class="text-primary" @click="handleWorkExperience" style="cursor: pointer">Add</p>
           </div>
-          <div class="card my-2 p-3" v-for="(work,index) in workExperiences" :key="index">
+          <div class="card my-2 p-3" v-for="(work,index) in resume.workExperiences" :key="index">
             <div class="row py-2 gx-5 gy-3 mt-3" >
               <h6 class="text-muted text-center">Work {{index + 1}}</h6>
               <div class="col-3 d-flex flex-column">
@@ -326,7 +326,7 @@
             <h5>Project Experience</h5>
             <p class="text-primary" @click="handleProjectExperience" style="cursor: pointer">Add</p>
           </div>
-          <div class="card my-2 p-3" v-for="(project,index) in projectExperiences" :key="index">
+          <div class="card my-2 p-3" v-for="(project,index) in resume.projectExperiences" :key="index">
             <div class="row py-2 gx-5 gy-3 mt-3" >
               <h6 class="text-muted text-center">Project {{index + 1}}</h6>
               <div class="col-3 d-flex flex-column">
@@ -399,7 +399,7 @@
             <h5>Education</h5>
             <p class="text-primary" @click="handleEducationAdd" style="cursor: pointer">Add</p>
           </div>
-          <div class="card my-2 p-3" v-for="(education,index) in educationExperiences" :key="index">
+          <div class="card my-2 p-3" v-for="(education,index) in resume.educationExperiences" :key="index">
             <div class="row py-2 gx-5 gy-3 mt-3" >
               <h6 class="text-muted text-center">Education {{index + 1}}</h6>
               <div class="col-3 d-flex flex-column">
@@ -472,7 +472,7 @@
             <h5>Language</h5>
             <p class="text-primary" @click="handleLanguageAdd" style="cursor: pointer">Add</p>
           </div>
-          <div class="row py-2 gx-5 gy-3 mt-3" v-for="(job,index) in languageExperience" :key="index">
+          <div class="row py-2 gx-5 gy-3 mt-3" v-for="(job,index) in resume.languageExperience" :key="index">
             <div class="col-3 d-flex flex-column">
               <p class="text-muted">Language</p>
               <input
@@ -529,13 +529,9 @@ import { languages } from '@/mock/resume/languages'
 import JobExperience from '@/components/resume/JobExperienceCard.vue'
 import EducationCard from '@/components/resume/EducationCard.vue'
 import LanguageCard from '@/components/resume/LanguageCard.vue'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { ElNotification } from 'element-plus'
-import type { DesiredJob } from '@/types/DesiredJob'
-import type { ProjectExperience } from '@/types/ProjectExperience'
-import type { EducationExperience } from '@/types/EducationExperience'
 
-const resume = ref({})
 
 // 期望工作表单设置
 const emptyDesiredJob = {
@@ -543,22 +539,8 @@ const emptyDesiredJob = {
   company: '',
   salary: 0,
   location: '',
-}
-const desiredJobs = ref<DesiredJob[]>([emptyDesiredJob]);
+};
 
-function handleDesiredJobAdd(){
-  if (desiredJobs.value.length<3){
-    desiredJobs.value.push(emptyDesiredJob)
-  }else{
-    ElNotification({
-      title: 'Error',
-      message: 'Max Desired Job Added!',
-      type: 'error',
-    })
-  }
-}
-
-// 工作经验表单设置
 const emptyWorkExperience = {
   companyName: '',
   industry: '',
@@ -570,10 +552,60 @@ const emptyWorkExperience = {
   endDate: Date,
   isIntern: false,
 }
-const workExperiences = ref<WorkExperience[]>([emptyWorkExperience]);
+
+const emptyProjectExperience = {
+  title: '',
+  role: '',
+  description: '',
+  performance: '',
+  url: '',
+  startDate: Date,
+  endDate: Date,
+}
+
+const emptyEducation = {
+  college: '',
+  degree: '',
+  major: '',
+  course: '',
+  startDate: Date,
+  endDate: Date,
+}
+
+const emptyLanguage = {
+  language: '',
+  proficiency: '',
+  certificate: '',
+  mark: '',
+}
+
+
+
+const resume = reactive({
+  desiredJobs: [],
+  workExperiences: [emptyWorkExperience],
+  projectExperiences: [emptyProjectExperience],
+  educationExperiences: [emptyEducation],
+  languageExperience: [emptyLanguage]
+});
+
+
+function handleDesiredJobAdd(){
+  if (resume.desiredJobs.length<3){
+    resume.desiredJobs.push(emptyDesiredJob)
+  }else{
+    ElNotification({
+      title: 'Error',
+      message: 'Max Desired Job Added!',
+      type: 'error',
+    })
+  }
+}
+
+// 工作经验表单设置
 function handleWorkExperience(){
-  if (workExperiences.value.length<3){
-    workExperiences.value.push(emptyWorkExperience)
+  if (resume.workExperiences.length<3){
+    resume.workExperiences.push(emptyWorkExperience)
   }else{
     ElNotification({
       title: 'Error',
@@ -584,19 +616,9 @@ function handleWorkExperience(){
 }
 
 // 项目经验表单设置
-const emptyProjectExperience = {
-  title: '',
-  role: '',
-  description: '',
-  performance: '',
-  url: '',
-  startDate: Date,
-  endDate: Date,
-}
-const projectExperiences = ref<ProjectExperience[]>([emptyProjectExperience]);
 function handleProjectExperience(){
-  if (projectExperiences.value.length<3){
-    projectExperiences.value.push(emptyProjectExperience)
+  if (resume.projectExperiences.length<3){
+    resume.projectExperiences.push(emptyProjectExperience)
   }else{
     ElNotification({
       title: 'Error',
@@ -607,18 +629,9 @@ function handleProjectExperience(){
 }
 
 // 教育表单设置
-const emptyEducation = {
-  college: '',
-  degree: '',
-  major: '',
-  course: '',
-  startDate: Date,
-  endDate: Date,
-}
-const educationExperiences = ref<EducationExperience[]>([emptyEducation]);
 function handleEducationAdd(){
-  if (educationExperiences.value.length<2){
-    educationExperiences.value.push(emptyEducation)
+  if (resume.educationExperiences.length<2){
+    resume.educationExperiences.push(emptyEducation)
   }else{
     ElNotification({
       title: 'Error',
@@ -629,17 +642,10 @@ function handleEducationAdd(){
 }
 
 // 语言表单设置
-const emptyLanguage = {
-  language: '',
-  proficiency: '',
-  certificate: '',
-  mark: '',
-}
-const languageExperience = ref<LanguageExperience[]>([emptyLanguage]);
 
 function handleLanguageAdd(){
-  if (languageExperience.value.length<3){
-    languageExperience.value.push(emptyLanguage)
+  if (resume.languageExperience.length<3){
+    resume.languageExperience.push(emptyLanguage)
   }else{
     ElNotification({
       title: 'Error',
@@ -647,6 +653,10 @@ function handleLanguageAdd(){
       type: 'error',
     })
   }
+}
+
+function handleUpdate(){
+  console.log(resume)
 }
 
 
