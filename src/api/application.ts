@@ -27,5 +27,18 @@ export const getApplicationByCompany = data => request({
   data
 });
 
+export const updateApplicationClosed = data => request({
+  url: '/app/updateApplicationClosed',
+  method: 'post',
+  data
+});
+
+export const updateApplicationStep = data => request({
+  url: '/app/updateApplicationStep',
+  method: 'post',
+  data
+});
+
+
 
 
