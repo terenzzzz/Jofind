@@ -189,7 +189,6 @@ async function fetchApplyStatus() {
   try {
     const response = await getApplicationByJob(props.job._id)
     isApplied.value = !!response.data.data
-    console.log(isApplied.value )
   } catch (error) {
     console.error('Failed to fetch user:', error)
   }

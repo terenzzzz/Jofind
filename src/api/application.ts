@@ -15,5 +15,11 @@ export const getApplicationByJob = (job) => request({
   params: {job: job}
 });
 
+export const getApplicationByUser = data => request({
+  url: '/app/getApplicationByUser',
+  method: 'get',
+  data
+});
+
 
 
