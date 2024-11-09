@@ -2,8 +2,15 @@
   <div id="overall" class="container">
     <!--    应聘记录-->
     <div class="card mt-4 rounded-3 border-0">
-      <div v-for="(application, index) in applicationsList" :key="index">
-        <ApplyRecordCard :application="application"></ApplyRecordCard>
+      <div v-if="applicationsList.length>0">
+        <div v-for="(application, index) in applicationsList" :key="index">
+          <ApplyRecordCard :application="application"></ApplyRecordCard>
+        </div>
+      </div>
+
+      <div v-else>
+        <el-empty description="You did not apply any jobs yet">
+        </el-empty>
       </div>
     </div>
   </div>

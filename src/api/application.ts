@@ -21,5 +21,11 @@ export const getApplicationByUser = data => request({
   data
 });
 
+export const getApplicationByCompany = data => request({
+  url: '/app/getApplicationByCompany',
+  method: 'get',
+  data
+});
+
 
 
