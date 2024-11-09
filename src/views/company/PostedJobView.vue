@@ -205,7 +205,7 @@
 </template>
 
 <script setup lang="ts">
-import JobCard from '@/components/JobCard.vue'
+import JobCard from '@/components/job/JobCard.vue'
 import CompanyCard from '@/components/company/CompanyCard.vue'
 import { onMounted, reactive, ref } from 'vue'
 import { getJobsByCompanyId, updateJob } from '@/api/job'

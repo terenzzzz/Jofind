@@ -57,7 +57,7 @@
 <script setup lang="ts">
 import { pcaTextArr } from 'element-china-area-data'
 import { onMounted, ref } from 'vue'
-import JobCard from '@/components/JobCard.vue'
+import JobCard from '@/components/job/JobCard.vue'
 
 import {jobs} from '@/mock/jobs'
 import CarouselCard from '@/components/CarouselCard.vue'

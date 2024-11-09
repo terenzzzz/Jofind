@@ -52,10 +52,18 @@
 
     </div>
 
-    <!--  预览-->
-    <div class="modal fade" :id="job._id" tabindex="-1">
+    <!--  预览模态框-->
+    <div class="modal fade" :id="job._id" tabindex="-1" v-if="isViewOnly">
       <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <div class="modal-content card p-5 overflow-auto">
+          <div class="d-flex justify-content-between">
+            <p
+              class="btn"
+              @click="closeModalById(job._id)"
+            >
+              <i class="bi bi-x-lg"></i>
+            </p>
+          </div>
           <div class="row">
             <!--            岗位信息-->
             <div class="col-8">
@@ -67,8 +75,9 @@
                     <a class="text-primary">{{ job.company.website }}</a>
                   </div>
                   <div class="ms-5" v-if="showAction">
-                    <div class="btn btn-light">Report Job</div>
-                    <div class="btn btn-primary">Apply Now</div>
+                    <div class="btn btn-light" v-if="!isApplied">Report Job</div>
+                    <div class="btn btn-primary" v-if="!isApplied" @click="handleApply">Apply Now</div>
+                    <div class="btn btn-success" v-if="isApplied" disabled="">Applied</div>
                   </div>
                 </div>
                 <el-divider />
@@ -191,7 +200,7 @@
     </div>
 
     <!--        编辑模态框-->
-    <div class="modal fade" :id="'editJobModal' + job._id" tabindex="-1">
+    <div class="modal fade" :id="'editJobModal' + job._id" v-if="!isViewOnly" tabindex="-1">
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <form class="modal-content card p-4" @submit.prevent="handleSubmit">
           <div class="d-flex justify-content-between">
@@ -375,11 +384,11 @@ import { Job } from '@/types/Job'
 import { convertISOToDate, formatDate } from '@/utils/timeConverter'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { ref,reactive, nextTick, watch } from 'vue'
-import { updateCompany } from '@/api/company'
+import { ref, reactive, nextTick, watch, onMounted } from 'vue'
 import { ElNotification } from 'element-plus'
 import { deleteJob, updateJob } from '@/api/job'
-import { defineEmits } from 'vue';
+import { addApplication, getApplicationByJob } from '@/api/application'
+import { Modal } from 'bootstrap'; // 引入 Bootstrap Modal 类
 
 const emit = defineEmits();
 
@@ -407,7 +416,6 @@ function toggleMap() {
 // 使用 defineProps 来接收 job prop
 const props = defineProps<{ job: Job, isViewOnly: boolean, showAction: boolean }>()
 
-
 // 创建一个响应式副本
 let updatedJob = reactive({} as Job);
 
@@ -430,6 +438,51 @@ watch(
   { immediate: true }  // 确保初始化时也会触发
 );
 
+const isApplied = ref(false)
+
+async function fetchApplyStatus() {
+  try {
+    const response = await getApplicationByJob()
+    isApplied.value = !!response.data.data;
+    console.log('isApplied: ', isApplied.value)
+
+  } catch (error) {
+    console.error('Failed to fetch user:', error)
+  }
+}
+
+
+async function handleApply() {
+  const formData = new FormData()
+  formData.set('job', props.job._id)
+  formData.set('company', props.job.company._id)
+
+  try {
+    const response = await addApplication(formData);
+    if (response.data.status === 200) {
+
+      ElNotification({
+        title: 'Success',
+        message: 'You Have Successfully Apply the Job!',
+        type: 'success',
+      })
+      // closeModal()
+    } else {
+      ElNotification({
+        title: 'Error',
+        message: response.data.message,
+        type: 'error',
+      })
+    }
+    await fetchApplyStatus()
+  } catch (error) {
+    ElNotification({
+      title: 'Error',
+      message: error.message,
+      type: 'error',
+    })
+  }
+}
 
 
 async function handleSubmit() {
@@ -510,6 +563,14 @@ function closeModal() {
     document.body.classList.remove('modal-open')
   }
 }
+
+function closeModalById(id: string) {
+
+}
+
+
 </script>
+
+
 
 <style scoped lang="css"></style>
