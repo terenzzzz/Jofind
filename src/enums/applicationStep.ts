@@ -4,5 +4,5 @@ export const applicationStep = [
   "Evaluation",
   "Offer",
   "Contracting",
-  "Closed",
+  "All Set",
 ];

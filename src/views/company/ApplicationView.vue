@@ -8,7 +8,7 @@
           <p >{{scope.row.job.role}}</p>
         </template>
       </el-table-column>
-      <el-table-column label="Step" >
+      <el-table-column label="Current Step" >
         <template v-slot="scope" >
           <el-tag type="primary" class="fs-6">
             {{scope.row.isClosed?'Closed':applicationStep[scope.row.step]}}
@@ -56,7 +56,7 @@ const tableRowClassName = ({ row }) => {
 }
 
 const handleNextStep = async (row: any) => {
-  if (row.step === 3){
+  if (row.step >= 4){
     return ElMessageBox.alert('This is the final step of the process, if you confirm this step is done, you can closed the application.', 'Tips', {
       confirmButtonText: 'OK',
     })
@@ -64,7 +64,7 @@ const handleNextStep = async (row: any) => {
 
   const formData = new FormData();
   formData.append('application', row._id);
-  formData.append('step', (row.step+1)<4?row.step+1:row.step);
+  formData.append('step', row.step+1);
 
   try {
     const response = await updateApplicationStep(formData);

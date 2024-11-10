@@ -5,4 +5,5 @@ export interface Application {
   company: Company,
   user: string,
   step: number,
+  isClosed: boolean
 }
