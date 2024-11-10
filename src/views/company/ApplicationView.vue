@@ -22,7 +22,7 @@
       </el-table-column>
       <el-table-column fixed="right" label="Operations">
         <template #default="scope">
-            <el-button type="primary" size="small" @click="handleNextStep" v-if="!scope.row.isClosed">
+            <el-button type="primary" size="small" @click="handleNextStep(scope.row)" v-if="!scope.row.isClosed">
               Next Step
             </el-button>
             <el-button  type="danger" size="small" @click="handleClose(scope.row)" v-if="!scope.row.isClosed">Close</el-button>
@@ -39,11 +39,11 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { getApplicationByCompany, updateApplicationClosed } from '@/api/application'
+import { getApplicationByCompany, updateApplicationClosed, updateApplicationStep } from '@/api/application'
 import { convertISOToDate } from '../../utils/timeConverter'
 import { applicationStep } from '@/enums/applicationStep'
-import { updateCompany } from '@/api/company'
-import { ElNotification } from 'element-plus'
+import { ElNotification, ElMessageBox } from 'element-plus'
+
 
 const applications = ref([]); // 使用 ref 而不是 reactive
 
@@ -55,13 +55,44 @@ const tableRowClassName = ({ row }) => {
   return ''
 }
 
-const handleNextStep = (row: any) => {
-  console.log('Editing:', row);
-  // 在这里添加编辑逻辑
+const handleNextStep = async (row: any) => {
+  if (row.step === 3){
+    return ElMessageBox.alert('This is the final step of the process, if you confirm this step is done, you can closed the application.', 'Tips', {
+      confirmButtonText: 'OK',
+    })
+  }
+
+  const formData = new FormData();
+  formData.append('application', row._id);
+  formData.append('step', (row.step+1)<4?row.step+1:row.step);
+
+  try {
+    const response = await updateApplicationStep(formData);
+    if (response.data.status === 200) {
+      ElNotification({
+        title: 'Success',
+        message: 'You Have Successfully Update the Application!',
+        type: 'success',
+      })
+      await fetchApplications()
+    } else {
+      ElNotification({
+        title: 'Error',
+        message: 'Something went wrong!',
+        type: 'error',
+      })
+    }
+  } catch (error) {
+    alert("An error occurred: " + error.message);
+    ElNotification({
+      title: 'Error',
+      message: 'Something went wrong!',
+      type: 'error',
+    })
+  }
 }
 
 const handleClose = async (row: any) => {
-  console.log('Deleting:', row);
   const formData = new FormData();
   formData.append('application', row._id);
   formData.append('isClosed', !row.isClosed);
