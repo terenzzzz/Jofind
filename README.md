@@ -1,19 +1,5 @@
 # jofind
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
 ## Project Setup
 
 ```sh
@@ -37,3 +23,35 @@ npm run build
 ```sh
 npm run lint
 ```
+
+## Project Features
+  - [x]  登录
+  - [x]  注册
+
+        
+  - [x] Seeker
+    - [x]  浏览岗位
+    - [x]  投递
+    - [ ]  岗位过滤
+    - [ ]  与HR对话
+    - [x]  个人基本信息
+    - [x]  投递记录
+    - [x]  投递状态查询
+    - [ ]  对话记录
+    - [x]  个人简历（设置，修改）
+       
+          
+  - [x] Company
+    - [x] 发布岗位
+    - [x]  公司信息录入
+    - [x]  查看投递记录
+    - [x]  投递状态修改
+    - [ ]  Dashboard信息统计
+    - [x]  查看求职者简历
+    - [ ]  与求职者对话
+       
+  - [x] Admin
+    - [ ]  岗位管理
+    - [ ]  招聘公司管理
+    - [ ]  求职者管理
+    - [ ]  tag等数据管
