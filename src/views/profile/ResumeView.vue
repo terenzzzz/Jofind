@@ -115,9 +115,9 @@
           <p class="btn" data-bs-toggle="modal" data-bs-target="#updateResume" @click="fetchResume">
             <i class="bi bi-x-lg"></i>
           </p>
-          <button class="btn btn-primary" type="submit">Update</button>
+          <button class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#updateResume">Update</button>
         </div>
-        <h5 class="text-center mt-5">Updating Resume</h5>
+        <h5 class="text-center mt-5" >Updating Resume</h5>
 
         <div class="d-flex mt-5 align-items-center">
           <div
@@ -858,7 +858,7 @@ async function handleUpdate() {
         message: 'You Have Successfully Update Your Resume!',
         type: 'success',
       })
-      closeModal()
+      // closeModal()
     } else {
       ElNotification({
         title: 'Error',
@@ -909,10 +909,6 @@ function closeModal() {
   if (backdropElement) {
     backdropElement.remove();
   }
-
-  // 移除 modal-open 类并恢复页面滚动
-  document.body.classList.remove('modal-open');
-  document.body.style.overflow = 'auto'; // 恢复页面滚动
 }
 
 function deleteExperience(field, index) {

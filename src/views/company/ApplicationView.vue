@@ -29,7 +29,6 @@
             <el-button  type="success" size="small" @click="handleClose(scope.row)" v-else>Reactive</el-button>
         </template>
       </el-table-column>
-
     </el-table>
 
   </div>
