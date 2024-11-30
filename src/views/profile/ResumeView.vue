@@ -1,6 +1,6 @@
 <template>
   <div id="seeker-profile" class="container h-100">
-    <div class="row mt-3 h-100">
+    <div v-if="hasResume" class="row mt-3 h-100">
       <div class="card p-5 border border-1 rounded-3 shadow" v-if="resume">
         <!--    个人基本信息-->
         <div class="row g-4">
@@ -50,7 +50,7 @@
           <h3 class="bottom-border">Desired position</h3>
           <ul>
             <li class="my-2" v-for="(job,index) in resume.desiredJobs" :key="index">
-              {{ job.role }} | {{job.salaryFrom}} - {{job.salaryTo}} | {{job.location}}
+              {{ job.role }} | {{job.salaryFrom}}K - {{job.salaryTo}}K | {{job.location}}
             </li>
           </ul>
         </div>
@@ -98,6 +98,12 @@
           </button>
         </el-empty>
       </div>
+    </div>
+    <div v-else>
+      <el-empty description="You are not setting your Resume yet">
+        <!--      <el-button type="primary" >Add a Company</el-button>-->
+        <el-button class="btn btn-outline-primary"  data-bs-toggle="modal" data-bs-target="#updateResume" >Edit</el-button>
+      </el-empty>
     </div>
   </div>
 
@@ -871,10 +877,18 @@ async function handleUpdate() {
   await fetchResume()
 }
 
+const hasResume = ref(false)
+
 async function fetchResume() {
   try {
     const response = await getResume()
-    Object.assign(resume, response.data.data)
+    if (response.data.data){
+      hasResume.value = true
+      Object.assign(resume, response.data.data)
+    }else{
+      hasResume.value = false
+    }
+
   } catch (error) {
     console.error('Failed to fetch Resume:', error)
   }
@@ -886,14 +900,19 @@ onMounted(async () => {
 })
 
 function closeModal() {
-  const modalElement = document.getElementById('updateResume')
-  const backdropElement = document.querySelector('.modal-backdrop')
-  modalElement.classList.remove('show') // 强制移除 show 类
+  const modalElement = document.getElementById('updateResume');
+  const backdropElement = document.querySelector('.modal-backdrop');
+
+  modalElement.classList.remove('show'); // 强制移除 show 类
+
   // 手动移除 backdrop 元素
   if (backdropElement) {
-    backdropElement.remove()
-    document.body.classList.remove('modal-open')
+    backdropElement.remove();
   }
+
+  // 移除 modal-open 类并恢复页面滚动
+  document.body.classList.remove('modal-open');
+  document.body.style.overflow = 'auto'; // 恢复页面滚动
 }
 
 function deleteExperience(field, index) {
