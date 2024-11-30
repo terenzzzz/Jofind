@@ -1,5 +1,5 @@
 
-export interface LanguageExperience {
+export interface WorkExperience {
   companyName: string,
   industry: string,
   department: string,

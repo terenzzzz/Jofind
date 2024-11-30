@@ -3,12 +3,12 @@
     <!--    公司信息-->
     <div class="d-flex flex-row justify-content-between align-items-center">
       <div class="img-container border border-2 p-2" style="height: 80px; width: 80px">
-        <img :src="job? 'data:image/png;base64,' + job.company.logo: ''" class="img-fluid" />
+        <img :src="job.company? 'data:image/png;base64,' + job.company.logo: ''" class="img-fluid" />
       </div>
 
       <div class="company d-flex flex-column justify-content-center">
-        <h5 class="fw-bold">{{ job.company.name }}</h5>
-        <p class="text-muted">{{ job.company.location }}</p>
+        <h5 class="fw-bold">{{ job.company?.name }}</h5>
+        <p class="text-muted">{{ job.company?.location }}</p>
       </div>
     </div>
 
@@ -30,7 +30,7 @@
 
 
       <div class="btn-group dropup">
-        <button type="button" class="btn btn-outline-primary" @click="toggleDetailModal">
+        <button type="button" class="btn btn-outline-primary" @click="toggleDetailModal" v-if="isViewable">
           View
         </button>
         <button type="button" class="btn dropdown-toggle dropdown-toggle-split btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false" v-if="!isViewOnly">
@@ -249,7 +249,7 @@ const emit = defineEmits();
 
 
 // 使用 defineProps 来接收 job prop
-const props = defineProps<{ job: Job, isViewOnly: boolean, showAction: boolean }>()
+const props = defineProps<{ job: Job, isViewOnly: boolean, showAction: boolean, isViewable: boolean }>()
 
 // 创建一个响应式副本
 let updatedJob = reactive({} as Job);

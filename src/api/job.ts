@@ -20,6 +20,13 @@ export const getJobs= data => request({
   data
 });
 
+export const getJobById= (id) => request({
+  url: '/app/getJobById',
+  method: 'get',
+  params: {id}
+});
+
+
 export const deleteJob= (jobId) => request({
   url: '/app/deleteJob',
   method: 'get',

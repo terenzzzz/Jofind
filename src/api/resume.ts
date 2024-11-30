@@ -14,3 +14,9 @@ export const getResume= data => request({
   method: 'get',
   data
 });
+
+export const getResumeByUser= (user) => request({
+  url: '/app/getResumeByUser',
+  method: 'get',
+  params: {user}
+});

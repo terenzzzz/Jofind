@@ -25,7 +25,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div>
                   <h3>{{ job.role }}</h3>
-                  <a class="text-primary">{{ job.company.website }}</a>
+                  <a class="text-primary">{{ job.company?.website }}</a>
                 </div>
                 <div class="ms-5" v-if="showAction">
                   <div class="btn btn-light" v-if="!isApplied">Report Job</div>
@@ -111,7 +111,7 @@
           <div class="col-4">
             <div class="d-flex justify-content-center">
               <img
-                :src="job ? 'data:image/png;base64,' + job.company.logo : ''"
+                :src="job ? 'data:image/png;base64,' + job.company?.logo : ''"
                 class="img-fluid"
               />
             </div>
@@ -119,28 +119,28 @@
 
             <div class="d-flex flex-column my-2">
               <p class="text-muted">Company</p>
-              <p class="fw-bold">{{ job.company.name }}</p>
+              <p class="fw-bold">{{ job.company?.name }}</p>
             </div>
 
             <div class="d-flex flex-column my-2">
               <p class="text-muted">Industry</p>
-              <p class="fw-bold">{{ job.company.industry }}</p>
+              <p class="fw-bold">{{ job.company?.industry }}</p>
             </div>
 
             <div class="d-flex flex-column my-2">
               <p class="text-muted">Founded</p>
-              <p class="fw-bold">{{ job.company.founded }}</p>
+              <p class="fw-bold">{{ job.company?.founded }}</p>
             </div>
 
             <div class="d-flex flex-column my-2">
               <p class="text-muted">Company Size</p>
-              <p class="fw-bold">{{ job.company.size }} Employees</p>
+              <p class="fw-bold">{{ job.company?.size }} Employees</p>
             </div>
 
             <div class="d-flex flex-column my-2">
               <p class="text-muted">Location</p>
               <div class="d-flex justify-content-between align-items-center">
-                <p class="fw-bold">{{ job.company.location }}</p>
+                <p class="fw-bold">{{ job.company?.location }}</p>
                 <button
                   class="btn btn-outline-primary btn-sm"
                   @click="toggleMap"

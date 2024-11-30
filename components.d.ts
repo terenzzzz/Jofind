@@ -51,6 +51,7 @@ declare module 'vue' {
     JobExperienceCard: typeof import('./src/components/resume/JobExperienceCard.vue')['default']
     LanguageCard: typeof import('./src/components/resume/LanguageCard.vue')['default']
     ProjectCard: typeof import('./src/components/resume/ProjectCard.vue')['default']
+    ResumeCard: typeof import('./src/components/resume/resumeCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TagButton: typeof import('./src/components/TagButton.vue')['default']
