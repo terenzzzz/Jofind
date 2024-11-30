@@ -277,7 +277,10 @@ const showDetailModal = ref(false);
 
 function toggleDetailModal(){
   showDetailModal.value = !showDetailModal.value;
-  // 移除类型modal-backdrop的dom元素
+
+  const modal = document.querySelectorAll('.modal-open');
+  modal.forEach(modal => modal.style.overflow = 'auto');
+
   const backdrops = document.querySelectorAll('.modal-backdrop');
   backdrops.forEach(backdrop => backdrop.remove());
 }

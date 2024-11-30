@@ -6,18 +6,18 @@
         <p>{{convertISOToDate(project.startDate) }} - {{convertISOToDate(project.endDate)}}</p>
       </div>
       <p class="my-2"><strong class="fw-bold">Project Role:</strong> {{ project.role }}</p>
-      <p class="my-2">
+      <div class="my-2">
         <strong class="fw-bold">Project Description:</strong>
-        {{ project.description }}
-      </p>
-      <p class="my-2" v-if="project.performance !== ''">
+        <p>{{ project.description }}</p>
+      </div>
+      <div class="my-2" v-if="project.performance !== ''">
         <strong class="fw-bold">Project Performance:</strong>
-        {{ project.performance }}
-      </p>
-      <p class="my-2" v-if="project.url !== ''">
+        <p>{{ project.performance }}</p>
+      </div>
+      <div class="my-2" v-if="project.url !== ''">
         <strong class="fw-bold">Project Link:</strong>
-        {{ project.url }}
-      </p>
+        <p>{{ project.url }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -32,8 +32,8 @@ interface Project {
   endDate: Date
   role: string
   description: string
-  performance?: string
-  url?: string
+  performance: string
+  url: string
 }
 
 // 使用 defineProps 来接收 job prop

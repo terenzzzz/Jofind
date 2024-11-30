@@ -4,6 +4,7 @@ export interface EducationExperience {
   degree: string
   major: string
   course: string
+  experience: string
   startDate: Date
   endDate: Date
 }

@@ -15,18 +15,18 @@
               <div class="d-flex flex-column">
                 <h3 class="m-0 p-0">{{ user? user.name : '' }}</h3>
                 <p>{{ user? user.email:'' }}</p>
-                <el-select
-                  v-model="selectedStatus"
-                  placeholder="Status"
-                  size="default"
-                >
-                  <el-option
-                    v-for="item in seekingStatus"
-                    :key="item.value"
-                    :label="item.status"
-                    :value="item._id"
-                  />
-                </el-select>
+<!--                <el-select-->
+<!--                  v-model="selectedStatus"-->
+<!--                  placeholder="Status"-->
+<!--                  size="default"-->
+<!--                >-->
+<!--                  <el-option-->
+<!--                    v-for="item in seekingStatus"-->
+<!--                    :key="item.value"-->
+<!--                    :label="item.status"-->
+<!--                    :value="item._id"-->
+<!--                  />-->
+<!--                </el-select>-->
               </div>
             </div>
           </div>
