@@ -22,7 +22,7 @@
                 >{{ resume.topDegree }}
               </li>
               <li class="col-auto">
-                <i class="bi bi-cake-fill me-1"></i>{{ resume.topDegree }}
+                <i class="bi bi-cake-fill me-1"></i>{{ resume.birth }}
               </li>
               <li class="col-auto">
                 <i class="bi bi-telephone-fill me-1"></i>{{ resume.phone }}
@@ -106,7 +106,7 @@
     <div class="modal-dialog modal-xl modal-dialog-centered">
       <form class="modal-content card p-5" @submit.prevent="handleUpdate">
         <div class="d-flex justify-content-between">
-          <p class="btn" data-bs-toggle="modal" data-bs-target="#postJobModal">
+          <p class="btn" data-bs-toggle="modal" data-bs-target="#updateResume" @click="fetchResume">
             <i class="bi bi-x-lg"></i>
           </p>
           <button class="btn btn-primary" type="submit">Update</button>
@@ -145,6 +145,17 @@
               placeholder=""
               required
               v-model="resume.name"
+            />
+          </div>
+
+          <div class="col-4 d-flex flex-column">
+            <p class="text-muted">Date of Birth</p>
+            <input
+              v-model="resume.birth"
+              type="date"
+              class="form-control"
+              placeholder=""
+              required
             />
           </div>
 
@@ -230,8 +241,8 @@
                 required
               />
             </div>
-            <div class="col-3 d-flex flex-column">
-              <p class="text-muted">Salary From</p>
+            <div class="col-2 d-flex flex-column">
+              <p class="text-muted">Salary From(K)</p>
               <input
                 v-model="resume.desiredJobs[index].salaryFrom"
                 type="number"
@@ -240,8 +251,8 @@
                 required
               />
             </div>
-            <div class="col-3 d-flex flex-column">
-              <p class="text-muted">Salary To</p>
+            <div class="col-2 d-flex flex-column">
+              <p class="text-muted">Salary To(K)</p>
               <input
                 v-model="resume.desiredJobs[index].salaryTo"
                 type="number"
@@ -259,6 +270,11 @@
                 placeholder=""
                 required
               />
+            </div>
+            <div class="col-1 d-flex flex-column justify-content-end">
+              <div class="btn btn-outline-primary btn-sm" @click="deleteExperience('desiredJobs', index)">
+                <i class="bi bi-trash3"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -280,7 +296,12 @@
             v-for="(work, index) in resume.workExperiences"
             :key="index"
           >
-            <div class="row py-2 gx-5 gy-3 mt-3">
+            <div class="row py-2 gx-5 gy-3">
+              <div class="d-flex justify-content-end">
+                <div class="btn btn-outline-primary btn-sm" @click="deleteExperience('workExperiences', index)">
+                  <i class="bi bi-trash3"></i>
+                </div>
+              </div>
               <h6 class="text-muted text-center">Work {{ index + 1 }}</h6>
               <div class="col-3 d-flex flex-column">
                 <p class="text-muted">Company Name</p>
@@ -393,7 +414,12 @@
             v-for="(project, index) in resume.projectExperiences"
             :key="index"
           >
-            <div class="row py-2 gx-5 gy-3 mt-3">
+            <div class="row py-2 gx-5 gy-3">
+              <div class="d-flex justify-content-end">
+                <div class="btn btn-outline-primary btn-sm" @click="deleteExperience('projectExperiences', index)">
+                  <i class="bi bi-trash3"></i>
+                </div>
+              </div>
               <h6 class="text-muted text-center">Project {{ index + 1 }}</h6>
               <div class="col-3 d-flex flex-column">
                 <p class="text-muted">Project Title</p>
@@ -486,7 +512,12 @@
             v-for="(education, index) in resume.educationExperiences"
             :key="index"
           >
-            <div class="row py-2 gx-5 gy-3 mt-3">
+            <div class="row py-2 gx-5 gy-3">
+              <div class="d-flex justify-content-end">
+                <div class="btn btn-outline-primary btn-sm" @click="deleteExperience('educationExperiences', index)">
+                  <i class="bi bi-trash3"></i>
+                </div>
+              </div>
               <h6 class="text-muted text-center">Education {{ index + 1 }}</h6>
               <div class="col-3 d-flex flex-column">
                 <p class="text-muted">College</p>
@@ -575,7 +606,7 @@
             </p>
           </div>
           <div
-            class="row py-2 gx-5 gy-3 mt-3"
+            class="row py-2 gx-5 gy-3"
             v-for="(job, index) in resume.languageExperience"
             :key="index"
           >
@@ -609,7 +640,7 @@
                 required
               />
             </div>
-            <div class="col-3 d-flex flex-column">
+            <div class="col-2 d-flex flex-column">
               <p class="text-muted">Mark</p>
               <input
                 v-model="resume.languageExperience[index].mark"
@@ -618,6 +649,11 @@
                 placeholder=""
                 required
               />
+            </div>
+            <div class="col-1 d-flex flex-column justify-content-end">
+              <div class="btn btn-outline-primary btn-sm" @click="deleteExperience('languageExperience', index)">
+                <i class="bi bi-trash3"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -687,6 +723,7 @@ const emptyLanguage = {
 
 const resume = reactive({
   name: '',
+  birth: '',
   email: '',
   topDegree: '',
   phone: '',
@@ -784,6 +821,7 @@ async function handleUpdate() {
   // 将普通字段添加到 FormData
   formData.append('avatar', newAvatar.value)
   formData.append('name', resume.name)
+  formData.append('birth', resume.birth)
   formData.append('email', resume.email)
   formData.append('topDegree', resume.topDegree)
   formData.append('phone', resume.phone)
@@ -855,6 +893,15 @@ function closeModal() {
   if (backdropElement) {
     backdropElement.remove()
     document.body.classList.remove('modal-open')
+  }
+}
+
+function deleteExperience(field, index) {
+  // 确保传入的字段是有效的
+  if (resume[field] && Array.isArray(resume[field])) {
+    resume[field].splice(index, 1); // 删除指定索引的元素
+  } else {
+    console.error(`Field ${field} is not a valid array`);
   }
 }
 
