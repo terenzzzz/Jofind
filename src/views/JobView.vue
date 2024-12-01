@@ -84,9 +84,6 @@ async function fetchJobs() {
 
 
 const selectedRegion = ref()
-
-
-
 const categories = [
   {
     value: '0',
@@ -113,6 +110,9 @@ async function fetchSearchResult(){
   try {
     const response = await getJobsByRole(keyword.value)
     jobsList.value = response.data.data
+    filteredJobs.value = jobsList.value
+    selectedWorkExperience.value = workExperience[0]?.value
+    selectedSalary.value = salaries[0]?.value
   } catch (error) {
     console.error('Failed to fetch user:', error)
   }
