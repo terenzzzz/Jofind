@@ -33,7 +33,7 @@
           </el-select>
 
           <p class="mt-4 fw-bold">Working Experience Required:</p>
-          <el-select v-model="selectedWorkExperience" placeholder="Experience" size="large" class="mb-5">
+          <el-select v-model="selectedWorkExperience" placeholder="Experience" size="large" class="mb-5" @change="handleWorkExperienceChange">
             <el-option v-for="item in workExperience" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
 
@@ -121,30 +121,67 @@ async function fetchSearchResult(){
 const selectedWorkExperience = ref(workExperience[0]?.value)
 const selectedSalary = ref(salaries[0]?.value)
 
+const filters = ref({
+  salary: '0',  // 默认 '0'
+  experience: '0',  // 默认 '0'
+});
 
+// 更新薪资过滤条件
+const handleSalaryChange = (newValue) => {
+  filters.value.salary = newValue;
+  filteredJobs.value = filterJobs(); // 每当某个过滤器变化时，重新调用过滤函数
+};
 
-function handleSalaryChange(newValue){
-  if (newValue === '0') { // 如果选择了 'All'
-    filteredJobs.value = jobsList.value;
-  } else {
-    // 根据薪资范围过滤
-    const ranges = {
-      '1': [0, 3],
-      '2': [3, 5],
-      '3': [5, 10],
-      '4': [10, 20],
-      '5': [20, 50],
-      '6': [50, Infinity],
-    };
+// 更新工作经验过滤条件
+const handleWorkExperienceChange = (newValue) => {
+  filters.value.experience = newValue;
+  filteredJobs.value = filterJobs(); // 每当某个过滤器变化时，重新调用过滤函数
+};
 
-    const [minSalary, maxSalary] = ranges[newValue];
+// 定义过滤范围
+const salaryRanges = {
+  '1': [0, 3],
+  '2': [3, 5],
+  '3': [5, 10],
+  '4': [10, 20],
+  '5': [20, 50],
+  '6': [50, Infinity],
+};
 
-    filteredJobs.value = jobsList.value.filter(job =>
+const experienceRanges = {
+  '1': [0, 0],  // Current student
+  '2': [0, 0],  // Fresh graduate
+  '3': [0, 0],  // No experience needed
+  '4': [0, 1],  // Less than 1 year
+  '5': [1, 3],  // 1 - 3 years
+  '6': [3, 5],  // 3 - 5 years
+  '7': [5, 10], // 5 - 10 years
+  '8': [10, Infinity],  // More than 10 years
+};
+
+// 定义通用的过滤方法
+const filterJobs = () => {
+  let filtered = [...jobsList.value]; // 从所有职位开始
+
+  // 薪资过滤
+  if (filters.value.salary !== '0') {
+    const [minSalary, maxSalary] = salaryRanges[filters.value.salary];
+    filtered = filtered.filter(job =>
       (job.salaryFrom >= minSalary && job.salaryFrom <= maxSalary) ||
       (job.salaryTo >= minSalary && job.salaryTo <= maxSalary) ||
       (job.salaryFrom <= minSalary && job.salaryTo >= maxSalary)
-    ); //  salaryFrom 在区间内，或者 salaryTo 在区间内，或者 salaryFrom 和 salaryTo 跨越了区间：
+    );
   }
-}
+
+  // 工作经验过滤
+  if (filters.value.experience !== '0') {
+    const [minExperience, maxExperience] = experienceRanges[filters.value.experience];
+    filtered = filtered.filter(job =>
+      job.experience >= minExperience && job.experience <= maxExperience
+    );
+  }
+
+  return filtered;
+};
 
 </script>
