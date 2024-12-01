@@ -26,6 +26,14 @@ export const getJobById= (id) => request({
   params: {id}
 });
 
+export const getJobsByRole= (keyword) => request({
+  url: '/app/getJobsByRole',
+  method: 'get',
+  params: {keyword}
+});
+
+
+
 
 export const deleteJob= (jobId) => request({
   url: '/app/deleteJob',

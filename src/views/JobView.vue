@@ -12,8 +12,8 @@
           <div class="row m-0 p-0 g-0 mt-2">
             <form @submit.prevent="fetchSearchResult" class="col-12 d-flex mx-auto">
               <input type="search" class="form-control form-control-lg ds-input rounded-end-0" id="search-input"
-                     placeholder="Search Jobs" v-model="keyword">
-              <button class="btn btn-primary rounded-start-0" >Search</button>
+                     placeholder="Keywords" v-model="keyword">
+              <button class="btn btn-primary rounded-start-0">Search</button>
             </form>
 
           </div>
@@ -45,7 +45,7 @@
 
         <div class="row g-4 d-flex flex-wrap">
           <div class="col-4" v-for="job in jobsList" :key="job._id">
-            <JobCard :job="job" class="h-100" :is-view-only="true" :show-action="true"></JobCard>
+            <JobCard :job="job" class="h-100" :is-view-only="true" :show-action="true" :is-viewable="true"></JobCard>
           </div>
         </div>
       </div>
@@ -58,10 +58,8 @@
 import { pcaTextArr } from 'element-china-area-data'
 import { onMounted, ref } from 'vue'
 import JobCard from '@/components/job/JobCard.vue'
-
-import {jobs} from '@/mock/jobs'
 import CarouselCard from '@/components/CarouselCard.vue'
-import { getJobs } from '@/api/job'
+import { getJobs, getJobsByRole } from '@/api/job'
 
 const jobsList = ref([]);
 
@@ -178,5 +176,16 @@ const experience = [
   },
 
 ]
+
+const keyword = ref('')
+async function fetchSearchResult(){
+  try {
+    const response = await getJobsByRole(keyword.value)
+    jobsList.value = response.data.data
+    console.log(jobsList.value)
+  } catch (error) {
+    console.error('Failed to fetch user:', error)
+  }
+}
 
 </script>
