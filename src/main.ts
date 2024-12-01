@@ -21,9 +21,12 @@ import vueCountryRegionSelect from 'vue3-country-region-select'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
+// 导入插件
+import SocketPlugin from '@/plugins/socket';
+
 
 const app = createApp(App)
-
+app.use(SocketPlugin);
 app.use(ElementPlus)
 app.use(createPinia())
 app.use(router)

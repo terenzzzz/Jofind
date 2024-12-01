@@ -23,6 +23,7 @@
     "element-plus": "^2.8.6",
     "leaflet": "^1.9.4",
     "pinia": "^2.2.4",
+    "socket.io-client": "^4.8.1",
     "vue": "^3.5.12",
     "vue-router": "^4.0.13",
     "vue3-country-region-select": "^1.0.0",
