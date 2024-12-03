@@ -22,23 +22,22 @@
           <div class="col-8">
             <div class="card p-2 border-1 border-light">
               <!--          头部信息-->
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
+              <div class="d-flex justify-content-between">
                   <h3>{{ job.role }}</h3>
                   <a class="text-primary">{{ job.company?.website }}</a>
+              </div>
+              <div class=" mt-3" v-if="showAction">
+                <div class="btn btn-outline-danger" v-if="!isApplied">Report Job</div>
+                <div class="btn btn-outline-primary" :class="isApplied?'me-3':'mx-3'"  @click="handleChat(job.company._id)">Chat with HR</div>
+                <div
+                  class="btn btn-outline-primary"
+                  v-if="!isApplied"
+                  @click="handleApply"
+                >
+                  Apply Now
                 </div>
-                <div class="ms-5" v-if="showAction">
-                  <div class="btn btn-light" v-if="!isApplied">Report Job</div>
-                  <div
-                    class="btn btn-primary"
-                    v-if="!isApplied"
-                    @click="handleApply"
-                  >
-                    Apply Now
-                  </div>
-                  <div class="btn btn-success" v-if="isApplied" disabled="">
-                    Applied
-                  </div>
+                <div class="btn btn-success" v-if="isApplied" disabled="">
+                  Applied
                 </div>
               </div>
               <el-divider />
@@ -171,6 +170,10 @@ import { Job } from '@/types/Job'
 import { nextTick, onMounted, ref, defineEmits } from 'vue'
 import L from 'leaflet'
 import { ElNotification } from 'element-plus'
+import { useRoute, useRouter } from 'vue-router'
+import socket from '@/utils/socket'
+import { createRoom, getChatRoomBySeeker } from '@/api/chat'
+const router = useRouter()
 
 const props = defineProps<{ job: Job, showAction: boolean }>()
 
@@ -226,6 +229,28 @@ async function handleApply() {
       type: 'error',
     })
   }
+}
+
+async function handleChat(companyId){
+  emit('closeModal');
+  // 1. 创建聊天室
+  try {
+    const formData = new FormData()
+    formData.set('company', companyId)
+
+    const response = await createRoom(formData)
+    const chatRoomId = response.data.data
+    // 2.跳转并带roomId参数
+    await router.push({
+      path: '/profile/chat',
+      query: {room: chatRoomId}
+    });
+  } catch (error) {
+    console.error('Failed to fetch user:', error)
+  }
+
+
+
 }
 
 function toggleMap() {
