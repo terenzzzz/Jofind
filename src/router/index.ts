@@ -5,6 +5,7 @@ import SignUp from '@/views/SignUp.vue'
 import ResumeView from '@/views/profile/ResumeView.vue'
 import Profile from '@/views/profile/ProfileView.vue'
 import MessageView from '@/views/profile/MessageView.vue'
+import MessageViewCompany from '@/views/company/MessageView.vue'
 import JobView from '@/views/JobView.vue'
 import DashboardView from '@/views/company/DashboardView.vue'
 import CompanyView from '@/views/company/CompanyView.vue'
@@ -84,7 +85,7 @@ const router = createRouter({
         {
           path: 'message',
           name: 'message',
-          component: MessageView,
+          component: MessageViewCompany,
         },
       ]
     },

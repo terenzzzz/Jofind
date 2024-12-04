@@ -16,26 +16,26 @@
         <div class="card rounded-2 bg-white p-3 " style="height: 70vh">
 
 
-<!--          当前对话框对象-->
+          <!--          当前对话框对象-->
           <div class="d-flex ps-2 align-items-center justify-content-between">
             <div>
-              <img :src="'data:image/png;base64,' + selectedRoom?.company.logo" class="img-fluid border border-2 rounded-circle" style="max-width: 50px; height: 50px"/>
-              <strong class="ms-3">{{selectedRoom?.company.name}}</strong>
+              <img :src="'data:image/png;base64,' + selectedRoom?.seeker.avatar" class="img-fluid border border-2 rounded-circle" style="max-width: 50px; height: 50px"/>
+              <strong class="ms-3">{{selectedRoom?.seeker.name}}</strong>
             </div>
             <i class="bi bi-info-circle fs-3"></i>
           </div>
           <el-divider class="my-2"/>
 
 
-<!--          对话内容-->
-          <div class="h-100 overflow-auto px-3"  ref="chatBox">
+          <!--          对话内容-->
+          <div class="h-100 overflow-auto px-3" ref="chatBox">
             <div v-for="(msg,index) in msgList" :key="index">
               <ChatBubble :message="msg"></ChatBubble>
             </div>
           </div>
 
 
-<!--          输入框-->
+          <!--          输入框-->
           <div class="card" style="height: 5vh">
             <div class="row m-0 p-0 h-100 w-100 g-0">
               <div class="col-10">
@@ -50,7 +50,7 @@
                   class="btn btn-primary w-100 h-100 rounded-0"
                   @click="sendMsg"
                 >
-                  <i class="bi bi-send"></i>
+                <i class="bi bi-send"></i>
                 </button>
               </div>
             </div>
@@ -71,7 +71,7 @@ import { onMounted, ref } from 'vue'
 import { getSocket } from '@/utils/socket';
 import { useRoute, useRouter } from 'vue-router'
 import { getJobs } from '@/api/job'
-import { getChatRoomBySeeker, getMsgByChatRoom } from '@/api/chat'
+import { getChatRoomByCompany, getChatRoomBySeeker, getMsgByChatRoom } from '@/api/chat'
 const router = useRouter()
 const route = useRoute()
 
@@ -93,7 +93,7 @@ onMounted(async () => {
 
 async function fetchChat(){
   try {
-    const response = await getChatRoomBySeeker()
+    const response = await getChatRoomByCompany()
     chatList.value = response.data.data
     selectedRoom.value = response.data.data[0];
     await fetchMsgByChatRoom(response.data.data[0]._id)
