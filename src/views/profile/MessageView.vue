@@ -6,7 +6,7 @@
           <h5 class="text-center fw-bold">Message</h5>
           <el-divider class="my-2"/>
           <div v-for="(chat,index) in chatList" :key="index" >
-            <ChatUserCard :chat="chat" :isSelected="selectedRoom === chat._id" @select-chat="handleSelectChat" ></ChatUserCard>
+            <ChatUserCard :chat="chat" :isSelected="selectedRoom._id === chat._id" @select-chat="handleSelectChat" ></ChatUserCard>
           </div>
 
 
@@ -38,8 +38,8 @@
 <!--          输入框-->
           <div class="card" style="height: 5vh">
             <div class="row m-0 p-0 h-100 w-100 g-0">
-              <div class="col-10 "><input class="w-100 h-100 rounded-0 border-0"/></div>
-              <div class="col-2"><button class="btn btn-primary w-100 h-100 rounded-0"><i class="bi bi-send"></i></button></div>
+              <div class="col-10 "><input class="w-100 h-100 rounded-0 border-0" v-model="inputMsg"/></div>
+              <div class="col-2"><button class="btn btn-primary w-100 h-100 rounded-0" @click="sendMsg"><i class="bi bi-send"></i></button></div>
             </div>
           </div>
         </div>
@@ -55,7 +55,7 @@ import { chatMessages } from '@/mock/chatMessages'
 import ChatUserCard from '@/components/profile/ChatUserCard.vue'
 import ChatBubble from '@/components/profile/ChatBubble.vue'
 import { onMounted, ref } from 'vue'
-// import socket from '@//utils/socket';
+import { getSocket } from '@/utils/socket';
 import { useRoute, useRouter } from 'vue-router'
 import { getJobs } from '@/api/job'
 import { getChatRoomBySeeker, getMsgByChatRoom } from '@/api/chat'
@@ -82,6 +82,9 @@ async function fetchChat(){
   try {
     const response = await getChatRoomBySeeker()
     chatList.value = response.data.data
+    selectedRoom.value = response.data.data[0];
+    await fetchMsgByChatRoom(response.data.data[0]._id)
+    joinChatRoom(response.data.data[0]._id)
   } catch (error) {
     console.error('Failed to fetch user:', error)
   }
@@ -90,11 +93,12 @@ async function fetchChat(){
 const chatList = ref([])
 const selectedRoom = ref(null);
 const msgList = ref([])
+const inputMsg = ref('')
 
 
 async function handleSelectChat(chatRoom: object){
   selectedRoom.value = chatRoom;
-  // joinChatRoom()
+  joinChatRoom(chatRoom._id)
   await fetchMsgByChatRoom(chatRoom._id)
 }
 
@@ -109,13 +113,30 @@ async function fetchMsgByChatRoom(chatRoom){
 
 
 function joinChatRoom(room) {
+  const socket = getSocket();
   socket.emit('create or join', room);
 
   // 监听房间创建或加入成功的事件
   socket.on('joined', (room) => {
     console.log(`User are now in room ${room}`);
-    // 你可以在这里处理房间加入后的逻辑
-    // 例如，更新 UI 显示聊天界面等
+  });
+
+  // 监听错误事件（如果有的话）
+  socket.on('error', (error) => {
+    console.error('Error:', error.message);
+  });
+}
+
+function sendMsg() {
+  const socket = getSocket();
+  const user = JSON.parse(localStorage.getItem('user'))
+  socket.emit('send msg', selectedRoom.value._id, user._id, inputMsg.value);
+
+  // 监听房间创建或加入成功的事件
+  socket.on('msg send', async (room, sender, chatText) => {
+    await fetchMsgByChatRoom(room)
+    inputMsg.value = ''
+    console.log(`${sender} sent message to room ${room}: ${chatText}`);
   });
 
   // 监听错误事件（如果有的话）
