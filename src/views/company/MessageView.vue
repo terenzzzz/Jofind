@@ -6,7 +6,7 @@
           <h5 class="text-center fw-bold">Message</h5>
           <el-divider class="my-2"/>
           <div v-for="(chat,index) in chatList" :key="index" >
-            <ChatUserCard :chat="chat" :isSelected="selectedRoom._id === chat._id" @select-chat="handleSelectChat" ></ChatUserCard>
+            <ChatUserCard :chat="chat" :isSelected="selectedRoom._id === chat._id" :is-company="true" @select-chat="handleSelectChat" ></ChatUserCard>
           </div>
 
 

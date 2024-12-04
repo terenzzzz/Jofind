@@ -6,7 +6,7 @@
           <h5 class="text-center fw-bold">Message</h5>
           <el-divider class="my-2"/>
           <div v-for="(chat,index) in chatList" :key="index" >
-            <ChatUserCard :chat="chat" :isSelected="selectedRoom._id === chat._id" @select-chat="handleSelectChat" ></ChatUserCard>
+            <ChatUserCard :chat="chat" :isSelected="selectedRoom._id === chat._id" :is-company="false" @select-chat="handleSelectChat" ></ChatUserCard>
           </div>
 
 
@@ -63,14 +63,12 @@
 </template>
 
 <script setup lang="ts">
-import { chatUser } from '@/mock/chatUser'
-import { chatMessages } from '@/mock/chatMessages'
+
 import ChatUserCard from '@/components/profile/ChatUserCard.vue'
 import ChatBubble from '@/components/profile/ChatBubble.vue'
 import { onMounted, ref } from 'vue'
 import { getSocket } from '@/utils/socket';
 import { useRoute, useRouter } from 'vue-router'
-import { getJobs } from '@/api/job'
 import { getChatRoomBySeeker, getMsgByChatRoom } from '@/api/chat'
 const router = useRouter()
 const route = useRoute()
