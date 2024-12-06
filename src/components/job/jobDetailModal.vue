@@ -248,9 +248,6 @@ async function handleChat(companyId){
   } catch (error) {
     console.error('Failed to fetch user:', error)
   }
-
-
-
 }
 
 function toggleMap() {

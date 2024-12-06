@@ -35,8 +35,9 @@
           {{ convertISOToDate(scope.row.updatedAt) }}
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="Operations">
+      <el-table-column fixed="right" label="Operations" width="250">
         <template #default="scope">
+            <el-button  type="primary" size="small" @click="handleChat(scope.row)">Chat</el-button>
             <el-button type="primary" size="small" @click="handleNextStep(scope.row)" v-if="!scope.row.isClosed">
               Next Step
             </el-button>
@@ -81,7 +82,9 @@ import ResumeCard from '@/components/resume/resumeCard.vue'
 import { getResumeByUser } from '@/api/resume'
 import { getJobById } from '@/api/job'
 import JobCard from '@/components/job/JobCard.vue'
-
+import { createRoom } from '@/api/chat'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 
 const applications = ref([]);
@@ -102,6 +105,26 @@ const currentResume = reactive({
 })
 
 const currentJob = reactive({})
+
+async function handleChat(application){
+
+  //1. 创建聊天室
+  try {
+    const formData = new FormData()
+    formData.set('seeker', application.user._id)
+    formData.set('company', application.company)
+
+    const response = await createRoom(formData)
+    const chatRoomId = response.data.data
+    // 2.跳转并带roomId参数
+    await router.push({
+      path: '/dashboard/message',
+      query: {room: chatRoomId}
+    });
+  } catch (error) {
+    console.error('Failed to fetch user:', error)
+  }
+}
 
 const tableRowClassName = ({ row }) => {
   if (row.isClosed) {
