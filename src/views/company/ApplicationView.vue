@@ -185,8 +185,7 @@ onMounted(async () => {
 async function fetchApplications() {
   try {
     const response = await getApplicationByCompany();
-    applications.value = []
-    applications.value.push( response.data.data)
+    applications.value = response.data.data
   } catch (error) {
     console.error('Failed to fetch applications:', error);
   }

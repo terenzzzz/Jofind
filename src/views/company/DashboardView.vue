@@ -59,6 +59,7 @@
 import { onMounted, ref, computed  } from 'vue'
 import { getUser } from '@/api/user'
 import { useRoute } from 'vue-router'
+import { getJobsByCompanyId } from '@/api/job'
 
 const route = useRoute()
 
@@ -92,7 +93,6 @@ async function fetchUser() {
     console.error('Failed to fetch user:', error)
   }
 }
-
 
 
 </script>

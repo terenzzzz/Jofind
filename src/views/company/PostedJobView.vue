@@ -194,7 +194,7 @@
 
     <div class="row g-4 d-flex flex-wrap mt-3" v-if="jobsList.length > 0">
       <div class="col-4" v-for="job in jobsList" :key="job._id">
-        <JobCard :job="job" :showAction="false" class="h-100" :is-view-only="false" @refresh="handleRefresh"></JobCard>
+        <JobCard :job="job" :showAction="false" class="h-100" :is-view-only="false" :is-viewable="true" @refresh="handleRefresh"></JobCard>
       </div>
     </div>
     <div class="d-flex justify-content-center h-100" v-else>
