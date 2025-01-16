@@ -1,4 +1,5 @@
 # jofind
+![描述文字](screenshot/promo.png)
 
 ## Project Setup
 
@@ -82,3 +83,12 @@ npm run lint
 - [ ]  招聘公司管理
 - [ ]  求职者管理
 - [ ]  tag等数据管理
+## Screenhots
+![身份验证](screenshot/authentication.png)
+![岗位浏览](screenshot/jobMarket.promo.png)
+![简历管理](screenshot/resume_promo.png)
+![投递状态查询](screenshot/applications_promo.png)
+![在线实时对话](screenshot/chat_promo.png)
+![公司信息管理](screenshot/companyManage_promo.png)
+![公司岗位管理](screenshot/jobManage_promo.png)
+![求职者管理](screenshot/applicationManage_promo.png)
